@@ -1,0 +1,43 @@
+PL
+
+Do kompilacji potrzeba:
+ - CMake >= 2.8
+ - SDL >= 1.2
+ - SDL_image >= 1.2
+ - SDL_ttf >= 2.0
+
+wraz z paczkami "-devel" (nagłówkami).
+
+Kompilacja to:
+ $ cmake .
+ $ make
+
+Potem można uruchomić program:
+ $ bin/flightsim
+
+Aby zainstalować program, trzeba przenieść katalogi bin/ i data/ w twoje docelowe miejsce
+i uruchamiać program z tej ścieżki.
+
+Na Windows polecam kompilację pod MSYS (cmake z opcją dodatkową -G 'MSYS Makefiles').
+
+EN
+
+To compile the project, you need the following:
+ - CMake >= 2.8
+ - SDL >= 1.2
+ - SDL_image >= 1.2
+ - SDL_ttf >= 2.0
+
+including the "-devel" packages (header files).
+
+Compilation:
+ $ cmake .
+ $ make
+
+Then you can run the program:
+ $ bin/flightsim
+
+To install the program, you have to move bin/ and data/ directories to your destination
+and run the program from that path.
+
+Under Windows, I recommed compiling with MSYS (cmake with addtional option -G 'MSYS Makefiles').
