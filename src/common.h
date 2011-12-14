@@ -15,7 +15,7 @@
 
 #include <SDL/SDL.h>
 
-/** \enum Alignment Oznaczenie położenia. */
+//! Oznaczenie położenia.
 enum Alignment
 {
   AL_Left = 0x1,
@@ -27,7 +27,7 @@ enum Alignment
   AL_Center = AL_HCenter | AL_VCenter
 };
 
-/** \struct Color Kolor RGBA */
+//! Kolor RGBA
 struct Color
 {
   float r, g, b, a;
@@ -50,7 +50,7 @@ struct Color
     { return (const float*)(this); }
 };
 
-/** \struct Point Punkt w przestrzeni 2D (x, y). */
+//! Punkt w przestrzeni 2D (x, y).
 struct Point
 {
   float x, y;
@@ -65,7 +65,7 @@ struct Point
     { return !operator==(p); }
 };
 
-/** \struct Size Rozmiar 2D (wysokość i szerokość). */
+//! Rozmiar 2D (wysokość i szerokość).
 struct Size
 {
   float w, h;
@@ -82,7 +82,7 @@ struct Size
     { return !operator==(s); }
 };
 
-/** \struct Rect Prostokąt (lewy górny wierzchołek + rozmiar) */
+//! Prostokąt (lewy górny wierzchołek + rozmiar)
 struct Rect : public Point, public Size
 {
   explicit Rect(float pX = 0.0f, float pY = 0.0f, float pWidth = 0.0f, float pHeight = 0.0f)
@@ -125,7 +125,7 @@ extern const float PI_180;
 extern const float _180_PI;
 //! @}
 
-/** \struct Vector3D Wektor w przestrzeni 3D */
+//! Wektor w przestrzeni 3D
 struct Vector3D
 {
   float x, y, z;
@@ -222,8 +222,9 @@ struct Vector3D
 // Prywatne dane klasy Time
 struct TimePrivate;
 
-/** \class Time Klasa przechowująca informację o momencie czasu.
- *
+
+//! Klasa przechowująca informację o momencie czasu.
+/**
  * Pozwala na pobranie obecnego momentu i obliczenie różnicy między dwoma momentami.
  *
  * Rozdzielczość jest zależna od systemu, ale zwracane wartości są zawsze w nanosekundach.
@@ -255,8 +256,8 @@ class Time
     TimePrivate *_private;
 };
 
-/** \class Timer Klasa timera do mierzenia upływu czasu.
- *
+//! Klasa timera do mierzenia upływu czasu.
+/**
  * Klasa ta pozwala na sprawdzenie, kiedy upłynie dany odcinek czasu.
  */
 class Timer

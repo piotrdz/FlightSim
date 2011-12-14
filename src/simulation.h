@@ -23,13 +23,14 @@ class Label;
 class Font;
 class Menu;
 
-/** \class Simulation Klasa symulacji
- *
- * Odpowiada za rysowanie widoku z kokpitu samolotu
+//! Klasa symulacji
+/**
+  * Odpowiada za rysowanie widoku 3D symulacji, zawiera obiekty mapy, graczy, pocisków.
  */
 class Simulation : public Widget
 {
   public:
+    //! Parametry zdarzeń przekazywanych do Render
     enum Actions
     {
       Action_Settings,
@@ -79,6 +80,7 @@ class Simulation : public Widget
                const std::string &pName);
     virtual ~Simulation();
 
+    //! @{ Akcesory do ustawiania parametrów
     inline void setFractalOptions(const FractalOptions &pOptions)
       { _fractal.setOptions(pOptions); }
 
@@ -92,21 +94,31 @@ class Simulation : public Widget
 
     inline void setPlayerAmmo(int ammo)
       { _player->setAmmo(ammo); }
+    //! @}
 
+    //! Wczytanie ustawień
     void loadSettings();
+    //! Reset do początkowego stanu
     void reset();
 
+    //! Dodanie przeciwników
     void addEnemies(int count, int aiActions);
 
+    //! Inicjalizacja OpenGL
     virtual void init();
+    //! Wyświetlanie sceny
     virtual void render();
+    //! Aktualizacja
     virtual void update();
 
+    //! Zamknięto dialog ustawień
     void settingsDialogFinished();
 
+    //! Obsługa komendy z konsoli
     void command(const std::string &commandStr);
 
   protected:
+    //! @{ Obsługa zdarzeń
     virtual void resizeEvent();
     virtual void showEvent();
     virtual void hideEvent();
@@ -120,6 +132,7 @@ class Simulation : public Widget
     virtual void joystickHatEvent(JoystickHatEvent* e);
 
     virtual void childEvent(Widget *sender, int parameter);
+    //! @}
 
   private:
     //! Fraktal plazmowy
@@ -191,8 +204,12 @@ class Simulation : public Widget
     //! Wyświetla wiadomość na dole ekranu
     void displayMessage(const std::string &message);
 
+    //! Usuwa wszystkich graczy
     void deleteEnemyPlayers();
+    //! Usuwa wszystkie pociski
     void deleteBullets();
+    //! Resetuje timery (potrzebne po wznowieniu symulacji)
     void resetTimers();
+    //! Wyświetla HUD
     void renderHud();
 };

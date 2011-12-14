@@ -22,26 +22,38 @@
 class Model;
 class Map;
 
+//! Gracz
 class Player
 {
   public:
+    //! Rodzaj kontroli
     enum ControlType
     {
+      //! Prędkość kątowa
       Control_AngularVelocity,
+      //! Przyspieszenie kątowe
       Control_AngularAcceleration
     };
 
+    //! Drużyna
     enum Team
     {
+      //! Niebieska
       Team_Blue,
+      //! Czerwona
       Team_Red
     };
 
+    //! Rodzaj akcji podejmowanej przez AI
     enum AIActions
     {
+      //! Przyspieszanie
       AI_Acceleration  = 0x01,
+      //! Skręcanie
       AI_Turning       = 0x02,
+      //! Zmiana wysokości
       AI_Pitching      = 0x04,
+      //! Manewry unikające
       AI_EvasiveAction = 0x08
     };
 
@@ -49,14 +61,18 @@ class Player
     Player(Map *pMap);
     virtual ~Player();
 
+    //! @{ Do obsługi modelu
     static void initModel();
     static void destroyModel();
 
     inline static const Model* model()
       { return _model; }
+    //! @}
 
+    //! Reset na początkowe wartości
     void reset();
 
+    //! @{ Akcesory
     inline void setName(const std::string &pName)
       { _name = pName; }
     inline std::string name() const
@@ -155,15 +171,21 @@ class Player
     Vector3D angularControl() const;
 
     Vector3D maximumAngularControl() const;
+    //! @}
 
+    //! Sprawdzenie uderzenia pocisku
     void checkHit(Bullet *bullet);
 
+    //! Wyświetla model gracza wraz z ramką (frameRotation to obrót względny ramki)
     void render(float frameRotation = 0.0f);
 
+    //! Aktualizuje parametry gracza
     void update();
 
+    //! Resetuje timery (potrzebne po wznowieniu gry)
     void resetTimers();
 
+    //! Zwraca listę utworzonych ostatnio pocisków
     std::vector<Bullet*> createdBullets();
 
   private:

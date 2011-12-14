@@ -23,9 +23,8 @@
 
 class Fractal;
 
-/** \class Map Mapa generowana z fraktalu plazmowego
- *
- * Klasa odpowiada za tworzenie, przechowywanie i rysowanie mapy złożonej
+//! Mapa generowana z fraktalu plazmowego
+/** Klasa odpowiada za tworzenie, przechowywanie i rysowanie mapy złożonej
  * z kwadratowych pól, generowanych za pomocą danego fraktala plazmowego.
  *
  * Każde pole jest generowane z fraktala plazmowego w pełnym rozmiarze 128x128
@@ -119,7 +118,7 @@ class Map : public Object
     static const int DETAIL_MEDIUM_COUNT = 64;
     static const int DETAIL_LOW_COUNT = 32;
 
-    //! \class Quas Klasa pola mapy
+    //! Klasa pola mapy
     class Quad
     {
       public:
@@ -174,7 +173,7 @@ class Map : public Object
         void filterValues(float v0, float &v1, float &v2, float &v3, float v4);
     };
 
-    //! \struct WorkerTask Struktura opisująca zadanie wątku roboczego
+    //! Struktura opisująca zadanie wątku roboczego
     struct WorkerTask
     {
       //! Czy poprawne?
@@ -200,7 +199,7 @@ class Map : public Object
       }
     };
 
-    //! \class Worker Klasa wątku roboczego
+    //! Klasa wątku roboczego
     /** Obsługuje zadania tworzenia pól. */
     class Worker
     {
@@ -235,7 +234,7 @@ class Map : public Object
         //! @}
     };
 
-    //! \class PaitComparator Do porównywania par współrzędnych w mapach/zbiorach
+    //! Do porównywania par współrzędnych w mapach/zbiorach
     class PairComparator
     {
       public:

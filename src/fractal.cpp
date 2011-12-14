@@ -118,7 +118,7 @@ void Fractal::setOptions(const FractalOptions& options)
   _options = options;
 }
 
-float Fractal::value(int x, int y)
+float Fractal::value(int x, int y) const
 {
   if ((x < 0) || (x >= _valuesSize) || (y < 0) || (y >= _valuesSize))
     return 0.0f;

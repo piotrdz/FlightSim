@@ -16,17 +16,21 @@
 
 #include <GL/gl.h>
 
+//! Model w formacie PLY
 class Model : public Object
 {
   public:
     Model(const std::string &pName = "");
     virtual ~Model();
 
+    //! Akcesor
     inline bool valid() const
       { return _valid; }
 
+    //! Wczytuje model z pliku
     bool load(const std::string &pFileName);
 
+    //! @{ Akcesory dla prostopadłościanu opisującego model
     inline Vector3D boundingBoxMin() const
       { return _boundMin; }
 
@@ -35,13 +39,20 @@ class Model : public Object
 
     inline float boundingBoxDiagonal() const
       { return (_boundMax - _boundMin).length(); }
+    //! @}
 
+    //! Wyświetla model
     void render();
 
   private:
+    //! Czy model zawiera poprawne dane?
     bool _valid;
+    //! ID listy
     unsigned int _list;
+    //! @{ Prostopadłościan opisujący model
     Vector3D _boundMin, _boundMax;
+    //! @}
 
+    //! Niszczenie listy
     void destroy();
 };
