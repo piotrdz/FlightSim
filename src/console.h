@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* console.h
-    Zawiera klasę Console, która wyświetla konsolę z możliwością
-    wprowadzania komend. */
+    Contains the Console class, which displays an in-program console with
+    the a command prompt. */
 
 #pragma once
 

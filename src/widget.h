@@ -4,8 +4,7 @@
  ***************************************************************************/
 
  /* widget.h
-    Zawiera klasę Widget - bazową klasę dla wszystkich renderowanych
-    obiektów. */
+    Contains the Widget class - base class for all rendered objects. */
 
 #pragma once
 

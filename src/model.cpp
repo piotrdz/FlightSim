@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* model.cpp
-    Zawiera implementację klasy Model. */
+    Contains the implementation of the Model class. */
 
 #include "model.h"
 
@@ -248,9 +248,9 @@ bool Model::load(const std::string& pFileName)
 
   _valid = true;
 
-  print(string("Wczytano model '") + pFileName + "'");
-  print("Statystyki: " + toString<int>(vCount) + " w. " + toString<int>(faces3.size()) + " tr. "
-       + toString<int>(faces4.size()) + " czw.");
+  print(string("Loaded model '") + pFileName + "'");
+  print("Stats: " + toString<int>(vCount) + " vert " + toString<int>(faces3.size()) + " tri "
+       + toString<int>(faces4.size()) + " quad");
 
   return true;
 }

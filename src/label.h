@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* label.h
-    Zawiera klasę Label, która pozwala na wyświetlenie napisu o danym
-    kolorze, ustawieniu itp. */
+    Contains the Label class, which displays a text label of given color,
+    font, alignment, etc. */
 
 #pragma once
 

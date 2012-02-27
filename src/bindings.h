@@ -4,9 +4,10 @@
  ***************************************************************************/
 
 /* bindings.h
-   Zawiera klasy KeyBinding, JoystickAxisBinding i JoystickButtonBinding,
-   która odpowiadają za przypisanie kontroli klawiszom i joystickowi,
-   a także klasę BindingManager, która nimi zarządza. */
+   Contains the classes: KeyBinding, JoystickAxisBinding
+   and JoystickButtonBinding, which are responsible for assigning controls
+   to keys and joystick, as well as BindingManager, which manages all
+   bindings. */
 
 #pragma once
 

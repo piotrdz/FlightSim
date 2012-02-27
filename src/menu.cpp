@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* menu.cpp
-    Zawiera implementację klasy Menu. */
+    Contains the implementation of the Menu class. */
 
 #include "menu.h"
 

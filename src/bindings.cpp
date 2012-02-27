@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* bindings.cpp
-    Zawiera implementację klas z bindings.h. */
+    Contains implementation of classes from bindings.h. */
 
 #include "bindings.h"
 
@@ -306,7 +306,7 @@ bool KeyBinding::set(int pKeysym, bool valid)
 std::string KeyBinding::name() const
 {
   if (_valid)
-    return "(brak)";
+    return "(none)";
 
   return translateSupportedKeysym(_keysym);
 }
@@ -314,12 +314,12 @@ std::string KeyBinding::name() const
 string JoystickAxisBinding::name() const
 {
   if (!valid())
-    return "(brak)";
+    return "(none)";
 
   stringstream s;
-  s << "Oś " << _axis;
+  s << "Axis " << _axis;
   if (_inverted)
-    s << " odwrócona";
+    s << " inverted";
 
   return s.str();
 }
@@ -327,10 +327,10 @@ string JoystickAxisBinding::name() const
 string JoystickButtonBinding::name() const
 {
   if (!valid())
-    return "(brak)";
+    return "(none)";
 
   stringstream s;
-  s << "Przycisk " << _button;
+  s << "Button " << _button;
   return s.str();
 }
 
@@ -390,7 +390,7 @@ const KeyBinding& BindingManager::findKey(const std::string& pName) const
   map<string, KeyBinding>::const_iterator it = _keyMap.find(pName);
   if (it == _keyMap.end())
   {
-    print(string("Brak klucza '") + pName + "'");
+    print(string("Missing key '") + pName + "'");
     return _invalidKey;
   }
   return (*it).second;
@@ -401,7 +401,7 @@ bool BindingManager::setKey(const std::string &pName, int pKeysym, bool pValid)
   map<string, KeyBinding>::iterator it = _keyMap.find(pName);
   if (it == _keyMap.end())
   {
-    print(string("Brak klucza '") + pName + "'");
+    print(string("Missing key '") + pName + "'");
     return false;
   }
 
@@ -432,7 +432,7 @@ const JoystickAxisBinding& BindingManager::findJoystickAxis(const std::string& p
   map<string, JoystickAxisBinding>::const_iterator it = _joystickAxisMap.find(pName);
   if (it == _joystickAxisMap.end())
   {
-    print(string("Brak klucza '") + pName + "'");
+    print(string("Missing key '") + pName + "'");
     return _invalidJoystickAxis;
   }
   return (*it).second;
@@ -443,7 +443,7 @@ bool BindingManager::setJoystickAxis(const std::string &pName, int pAxis, bool p
   map<string, JoystickAxisBinding>::iterator it = _joystickAxisMap.find(pName);
   if (it == _joystickAxisMap.end())
   {
-    print(string("Brak klucza '") + pName + "'");
+    print(string("Missing key '") + pName + "'");
     return false;
   }
 
@@ -470,7 +470,7 @@ const JoystickButtonBinding& BindingManager::findJoystickButton(const std::strin
   map<string, JoystickButtonBinding>::const_iterator it = _joystickButtonMap.find(pName);
   if (it == _joystickButtonMap.end())
   {
-    print(string("Brak klucza '") + pName + "'");
+    print(string("Missing key '") + pName + "'");
     return _invalidJoystickButton;
   }
   return (*it).second;
@@ -481,7 +481,7 @@ bool BindingManager::setJoystickButton(const std::string &pName, int pButton)
   map<string, JoystickButtonBinding>::iterator it = _joystickButtonMap.find(pName);
   if (it == _joystickButtonMap.end())
   {
-    print(string("Brak klucza '") + pName + "'");
+    print(string("Missing key '") + pName + "'");
     return false;
   }
 

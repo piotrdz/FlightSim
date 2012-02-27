@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* settingsdialog.h
-    Zawiera klasę SettingsDialog - dialogu do zmiany ustawień. */
+    Contains the SettingsDialog class - a dialog for changing settings. */
 
 #pragma once
 

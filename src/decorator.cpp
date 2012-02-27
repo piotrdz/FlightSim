@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 /* decorator.cpp
-   Zawiera implementację klas Decorator i RoundRect. */
+   Contains the implementation of Decorator and RoundRect classes. */
 
 #include "decorator.h"
 

@@ -4,11 +4,8 @@
  ***************************************************************************/
 
   /* controls.h
-     Zawiera klasę kontrolki Control i klasy pochodne:
-     Button - przycisk,
-     CheckBox - pole do zaznaczania,
-     ChoiceBox - pole do wyboru opcji,
-     LineEdit - pole do wpisywania tekstu */
+     Contains the class Control and the derived classes:
+     Button, CheckBox, ChoiceBox, LineEdit */
 
 #pragma once
 

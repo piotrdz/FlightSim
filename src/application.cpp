@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 /* application.cpp
-   Zawiera implementację klasy Application. */
+   Contains the Application class. */
 
 #include "application.h"
 
@@ -41,7 +41,7 @@ Application::Application(int argc, char **argv)
   _applicationName = "FlightSim";
   _applicationVersion = "1.0";
 
-  // Domyślne wartości
+  // Default values
   _windowSettings.size = Size(1024, 768);
   _windowSettings.bpp = 32;
   _windowSettings.fullScreen = false;
@@ -135,13 +135,13 @@ void Application::parseArgs()
     }
     else if (stream.str() == "-v")
     {
-      cout << _applicationName << " wersja " << _applicationVersion << endl;
+      cout << _applicationName << " version " << _applicationVersion << endl;
       quit(0);
       return;
     }
     else if (stream.str() == "-h")
     {
-      cout << "Użycie: " << _argv[0] << " [-size szerXwys -b bpp (-fs|-nfs)]" << endl;
+      cout << "Usage: " << _argv[0] << " [-size widthXheight -b bpp (-fs|-nfs)]" << endl;
       quit(0);
       return;
     }
@@ -149,7 +149,7 @@ void Application::parseArgs()
     {
       if (i >= _argc - 1)
       {
-        cout << "Brak argumentu do -size!" << endl;
+        cout << "Missing argument for -size!" << endl;
         quit(1);
         return;
       }
@@ -165,7 +165,7 @@ void Application::parseArgs()
 
       if ((width <= 0) || (height <= 0))
       {
-        cout << "Błędny argument do -size!" << endl;
+        cout << "Invalid argument for -size!" << endl;
         quit(1);
         return;
       }
@@ -179,7 +179,7 @@ void Application::parseArgs()
     {
       if (i >= _argc - 1)
       {
-        cout << "Brak argumentu do -b!" << endl;
+        cout << "Missing argument for -b!" << endl;
         quit(1);
         return;
       }
@@ -191,7 +191,7 @@ void Application::parseArgs()
 
       if (bpp <= 0)
       {
-        cout << "Błędny argument do -b!" << endl;
+        cout << "Invalid argument for -b!" << endl;
         quit(1);
         return;
       }
@@ -202,7 +202,7 @@ void Application::parseArgs()
     }
     else
     {
-      cout << "Zły argument: " << stream.str() << endl;
+      cout << "Invalid argument: " << stream.str() << endl;
       quit(1);
       return;
     }
@@ -231,7 +231,7 @@ void Application::init()
 {
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
   {
-    Object::print("Błąd w SDL_Init(): " + string(SDL_GetError()));
+    Object::print("Error in SDL_Init(): " + string(SDL_GetError()));
     quit(1);
     return;
   }
@@ -240,7 +240,7 @@ void Application::init()
 
   if (!videoInfo)
   {
-    Object::print("Błąd w SDL_GetVideoInfo(): " + string(SDL_GetError()));
+    Object::print("Error in SDL_GetVideoInfo(): " + string(SDL_GetError()));
     quit(1);
     return;
   }
@@ -275,7 +275,7 @@ void Application::init()
 
   if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) == 0)
   {
-    Object::print("Błąd w IMG_Init()!");
+    Object::print("Error in IMG_Init()!");
     quit(1);
     return;
   }
@@ -298,7 +298,7 @@ void Application::init()
 
   if (!_surface)
   {
-    Object::print("Błąd w SDL_SetVideoMode(): " + string(SDL_GetError()));
+    Object::print("Error in SDL_SetVideoMode(): " + string(SDL_GetError()));
     quit(1);
     return;
   }
@@ -328,7 +328,7 @@ void Application::changeWindowSettings()
 
   if (!_surface)
   {
-    Object::print("Błąd w SDL_SetVideoMode(): " + string(SDL_GetError()));
+    Object::print("Error in SDL_SetVideoMode(): " + string(SDL_GetError()));
     quit(1);
     return;
   }
@@ -382,12 +382,11 @@ int Application::execute()
 
   while (!_quit)
   {
-    // Obsługa zdarzeń z SDL
+    // Event handling
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
       {
-        // Użytkownik zmienił rozmiar okna
         case SDL_VIDEORESIZE:
         {
           _newWindowSettings = _windowSettings;
@@ -397,7 +396,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik wcisnął klawisz
         case SDL_KEYDOWN:
         {
           KeyboardDownEvent e(event.key);
@@ -405,7 +403,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik zwolnił klawisz
         case SDL_KEYUP:
         {
           KeyboardUpEvent e(event.key);
@@ -413,7 +410,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik wcisnął przycisk myszy
         case SDL_MOUSEBUTTONDOWN:
         {
           MouseButtonDownEvent e(event.button);
@@ -421,7 +417,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik zwolnił przycisk myszy
         case SDL_MOUSEBUTTONUP:
         {
           MouseButtonUpEvent e(event.button);
@@ -429,7 +424,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik przesunął myszę
         case SDL_MOUSEMOTION:
         {
           MouseMotionEvent e(event.motion);
@@ -437,7 +431,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik poruszył joystickiem
         case SDL_JOYAXISMOTION:
         {
           JoystickAxisMotionEvent e(event.jaxis);
@@ -445,7 +438,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik wcisnął przycisk joysticka
         case SDL_JOYBUTTONDOWN:
         {
           JoystickButtonDownEvent e(event.jbutton);
@@ -453,7 +445,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik zwolnił przycisk joysticka
         case SDL_JOYBUTTONUP:
         {
           JoystickButtonUpEvent e(event.jbutton);
@@ -461,7 +452,6 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik zmienił ustawienie "grzybka" joysticka
         case SDL_JOYHATMOTION:
         {
           JoystickHatEvent e(event.jhat);
@@ -469,10 +459,9 @@ int Application::execute()
           break;
         }
 
-        // Użytkownik zamknął okno
         case SDL_QUIT:
         {
-          Object::print("Okno zamknięte");
+          Object::print("Window closed");
           _quit = true;
           break;
         }

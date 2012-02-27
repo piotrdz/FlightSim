@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* object.cpp
-    Zawiera implementację klas Object i IdManager. */
+    Contains the implemenation of classes Object and IdManager. */
 
 #include "object.h"
 #include "application.h"
@@ -20,7 +20,7 @@ int Object::_lastId = 0;
 Object::Object(const string &pName)
   : _name(pName), _id(++_lastId)
 {
-  // ID = 1 jest zarezerwowane dla obiektu IdManager
+  // ID = 1 is reserved for IdManager object
   if (_id == 1)
     return;
 
@@ -29,7 +29,7 @@ Object::Object(const string &pName)
 
 Object::~Object()
 {
-  // ID = 1 jest zarezerwowane dla obiektu IdManager
+  // ID = 1 is reserved for IdManager object
   if (_id == 1)
     return;
 

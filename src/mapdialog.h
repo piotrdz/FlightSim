@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* mapdialog.h
-    Zawiera klasę MapDialog - dialog do ustawienia parametrów mapy. */
+    Contains the MapDialog class - a dialog for setting map parameters. */
 
 #pragma once
 

@@ -4,10 +4,7 @@
  ***************************************************************************/
 
  /* dialog.h
-    Zawiera klasę bazową dialogów - Dialog i trzy standardowe dialogi:
-    InformationDialog - dialog z tekstem informacyjnym,
-    ConfirmationDialog - dialog z pytaniem,
-    InputDialog - dialog do pobierania tekstu od użytkownika. */
+    Contains the base class for dialogs - Dialog */
 
 #pragma once
 

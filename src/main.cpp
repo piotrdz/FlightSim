@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* main.cpp
-    Główny moduł zawierający funkcję main(). */
+    The main module with the main() function. */
 
 #include "object.h"
 #include "filemanager.h"

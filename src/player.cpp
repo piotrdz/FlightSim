@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* player.cpp
-    Zawiera implementację klasy Player. */
+    Contains the implementation of the Player class. */
 
 #include "player.h"
 
@@ -76,7 +76,7 @@ void Player::initModel()
     _model = new Model("FighterModel");
     if (!_model->load(FileManager::instance()->fileName("FighterModel")))
     {
-      Application::instance()->print("Player", "Nie można wczytać modelu myśliwca!");
+      Application::instance()->print("Player", "Could not load the fighter model!");
       Application::instance()->quit(1);
     }
   }
@@ -179,7 +179,7 @@ void Player::checkHit(Bullet* bullet)
     bullet->setDecayed();
 
     Application::instance()->print("Player",
-      _name + ": trafienie! HP: " + toString<int>(_hp) + "/" +
+      _name + ": hit! HP: " + toString<int>(_hp) + "/" +
       toString<int>(Player::MAX_HP));
 
     if (_ai && ((_aiActions & AI_EvasiveAction) != 0)
@@ -283,7 +283,7 @@ void Player::update()
   {
     float delta = _updateTimer.timeoutDifference() / 1e9f;
 
-    // Obliczenie przyspieszenia kątowego obrotów własnych
+    // Calculation of angular acceleration of own rotation
 
     if (_controlType == Control_AngularAcceleration)
     {
@@ -304,7 +304,7 @@ void Player::update()
 
     _angularAcceleration.clamp(-Player::MAX_ANGULAR_ACCELERATION, Player::MAX_ANGULAR_ACCELERATION);
 
-    // Uaktualnienie prędkości kątowej obrotów własnych
+    // Updating of angular velocity of own rotation
 
     _angularVelocity += delta * _angularAcceleration;
     _angularVelocity.clamp(-Player::MAX_ANGULAR_VELOCITY, Player::MAX_ANGULAR_VELOCITY);
@@ -316,7 +316,7 @@ void Player::update()
     if (fabs(_angularAcceleration.z) < 0.1f)
       _angularVelocity.z = 0.0f;
 
-    // Obliczenie prędkości kątowej przy skręcaniu (pochyleniu samolotu na 1 skrzydło)
+    // Calculation of angular acceleration in bank turning
 
     float turnRate = 0.0f;
     if (fabs(_rotation.roll()) > 1.0f)
@@ -334,7 +334,7 @@ void Player::update()
         turnRate = -turnRate;
     }
 
-    // Uaktualnienie pozycji, prędkości i obrotu
+    // Calculation of position, velocity and rotation
 
     _velocityValue += delta * _accelerationControl;
     if (_velocityValue > Player::MAX_VELOCITY)
@@ -352,7 +352,7 @@ void Player::update()
     if (turnRate != 0.0f)
       _rotation.rotateGlobal(0.0f, turnRate * delta, 0.0f);
 
-    // Zmiana obecnego pola po przekroczeniu granic(y) zerowego pola
+    // Change of field position after leaving "zeroth" field
 
     Vector3D qs = _map->quadSize();
 
@@ -378,7 +378,7 @@ void Player::update()
       _position.z += qs.z;
     }
 
-    // Reakcja na zestrzelenie
+    // After shooting down
 
     if ((_hp == 0) && (_fade == 1.0f))
     {
@@ -416,7 +416,7 @@ void Player::update()
       _lastAIParam = _aiParam;
     }
 
-    // Lot prosty; wybór następnej fazy
+    // Straight flight: choosing the next phase
     if (_aiState == 0)
     {
       bool ok = true;
@@ -434,7 +434,7 @@ void Player::update()
 
       _aiTimer.setIntervalMsec(500 + rand() % 4000);
     }
-    // Zmiana prędkości
+    // Change of velocity
     else if (_aiState < 20)
     {
       if (_aiState == 10)
@@ -454,10 +454,10 @@ void Player::update()
         _aiTimer.setIntervalMsec(2000 + rand() % 3000);
       }
     }
-    // Skręcanie
+    // Turning
     else if (_aiState < 30)
     {
-      // Przechylenie - początek
+      // Banking - beginnig
       if (_aiState == 20)
       {
         _angularAccelerationControl.z = Player::MAX_ANGULAR_ACCELERATION.z;
@@ -467,7 +467,7 @@ void Player::update()
         _aiState = 21;
         _aiTimer.setIntervalMsec(1);
       }
-      // Przechylenie - kontynuacja i skręcanie
+      // Banking continued and turning
       else if (_aiState == 21)
       {
         if (fabs(_rotation.roll()) > 30.0f)
@@ -484,7 +484,7 @@ void Player::update()
             _angularAccelerationControl.z *= -1.0f;
         }
       }
-      // Przechylenie z powrotem do poziomu - początek
+      // Banking back to level - beginning
       else if (_aiState == 22)
       {
         _angularAccelerationControl.z = Player::MAX_ANGULAR_ACCELERATION.z;
@@ -498,7 +498,7 @@ void Player::update()
         _aiState = 23;
         _aiTimer.setIntervalMsec(1);
       }
-      // Kontynuacja
+      // Continued
       else if (_aiState == 23)
       {
         if (((_aiParam < 0.0f) && (_rotation.roll() < 0.5f)) ||
@@ -516,10 +516,10 @@ void Player::update()
         }
       }
     }
-    // Zmiana wysokości
+    // Change in altitude
     else if (_aiState < 40)
     {
-      // Nachylenie - początek
+      // Pitching - beginning
       if (_aiState == 30)
       {
         _angularAccelerationControl.x = Player::MAX_ANGULAR_ACCELERATION.x;
@@ -533,7 +533,7 @@ void Player::update()
         _aiState = 31;
         _aiTimer.setIntervalMsec(1);
       }
-      // Nachylenie - kontynuacja
+      // Pitching - continued
       else if (_aiState == 31)
       {
         if (fabs(_rotation.pitch()) > 15.0f)
@@ -550,7 +550,7 @@ void Player::update()
             _angularAccelerationControl.x *= -1.0f;
         }
       }
-      // Wznoszenie/opadanie i powrót do poziomu
+      // Ascending/descending and return to level flight
       else if (_aiState == 32)
       {
         if ((_rotation.pitch() < 0.0f) && (_position.y < _aiParam))
@@ -568,7 +568,7 @@ void Player::update()
           _aiParam = -1.0f;
         }
       }
-      // Kontynuacja
+      // Continued
       else if (_aiState == 33)
       {
         if ( ((_aiParam > 0.0f) && (_rotation.pitch() > 0.2f)) ||
@@ -587,7 +587,7 @@ void Player::update()
         }
       }
     }
-    // Manewry unikające
+    // Evasive manouvers
     else if (_aiState < 50)
     {
       _aiState = 10 * (1 + rand() % 3);

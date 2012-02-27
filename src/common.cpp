@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* common.cpp
-    Zawiera implementację struktur i klas z common.h. */
+    Contains the implementation of structs and classes from common.h. */
 
 #include "common.h"
 

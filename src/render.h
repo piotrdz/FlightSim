@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* render.h
-    Zawiera klasę Render, która jest odpowiedzialna za renderowanie
-    i zarządzanie obiektami klasy Widget. */
+    Contains the Render class, which is responsible for rendering and
+    managing objects of class Widget. */
 
 #pragma once
 

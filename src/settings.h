@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* settings.h
-    Zawiera klasę Settings odpowiedzialną za przechowywanie, wczytywanie
-    i zapisywanie ustawień programu. */
+    Contains the Settings class, which is responsible for storing and
+    loading program settings. */
 
 #pragma once
 

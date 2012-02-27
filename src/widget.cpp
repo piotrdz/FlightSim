@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* widget.cpp
-    Zawiera implementację klasy Widget. */
+    Contains the implementation of the Widget class. */
 
 #include "widget.h"
 

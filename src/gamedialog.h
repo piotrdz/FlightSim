@@ -4,7 +4,8 @@
  ***************************************************************************/
 
  /* gamedialog.h
-    Zawiera klasę GameDialog - dialog do ustawienia parametrów gry. */
+    Contains the GameDialog class - a dialog for setting
+    the settings of the game.*/
 
 #pragma once
 

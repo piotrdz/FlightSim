@@ -4,8 +4,8 @@
  ***************************************************************************/
 
 /* application.h
-   Zawiera klasę Application, która odpowiada za komunikację z SDL
-   i zarządza oknem programu. */
+   Contains the Application class, which is responsible for interfacing
+   with SDL and managing the program window. */
 
 #pragma once
 

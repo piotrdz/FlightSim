@@ -4,8 +4,8 @@
  ***************************************************************************/
 
   /* controls.cpp
-     Zawiera implementację klas Control, Button, CheckBox, ChoiceBox
-     i LineEdit. */
+     Contains the implementation of classes Control, Button, CheckBox,
+     ChoiceBox and LineEdit. */
 
 #include "controls.h"
 

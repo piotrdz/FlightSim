@@ -4,8 +4,7 @@
  ***************************************************************************/
 
  /* fontengine.h
-    Zawiera klasy i struktury wchodzące w skład silnika renderowania
-    tekstu. */
+    Contains the classes and structs comprising the text rendering engine. */
 
 #pragma once
 

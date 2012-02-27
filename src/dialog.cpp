@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* dialog.cpp
-    Zawiera implementację klasy Dialog. */
+    Contains the implementation of the Dialog class. */
 
 #include "dialog.h"
 

@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* bullet.cpp
-    Zawiera implementację klasy Bullet. */
+    Contains implementation of class Bullet. */
 
 #include "bullet.h"
 

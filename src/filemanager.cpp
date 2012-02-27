@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 /* filemanager.cpp
-   Zawiera implementację klasy FileManager. */
+   Contains the implementation of the FileManager class. */
 
 #include "filemanager.h"
 
@@ -36,7 +36,7 @@ void FileManager::registerFile(const string& id, const string& path)
   if (it != _fileMap.end())
   {
     stringstream s;
-    s << "Plik " << path << " nie może być zarejestrowany podwójnie (id1="
+    s << "File " << path << " cannot be registered twice (id1="
       << (*it).first << ", id2=" << (*it).second << ")";
     print(s.str());
     Application::instance()->quit(1);
@@ -52,7 +52,7 @@ std::string FileManager::fileName(const std::string& id) const
   if (it == _fileMap.end())
   {
     stringstream s;
-    s << "Plik o id=" << id << " nie jest zarejestrowany!";
+    s << "File with id=" << id << " is not registered!";
     print(s.str());
     Application::instance()->quit(1);
     return "";
@@ -87,7 +87,7 @@ bool FileManager::ensureCanRead(const std::string &id) const
 
   if (!result)
   {
-    print(string("Nie można odczytać pliku: ") + id + " = '" + fileName(id) + "'");
+    print(string("Could not read from file: ") + id + " = '" + fileName(id) + "'");
     Application::instance()->quit(1);
   }
 
@@ -100,7 +100,7 @@ bool FileManager::ensureCanWrite(const std::string &id) const
 
   if (!result)
   {
-    print(string("Nie można zapisywać do pliku: ") + id + " = '" + fileName(id) + "'");
+    print(string("Could not save to file: ") + id + " = '" + fileName(id) + "'");
     Application::instance()->quit(1);
   }
 

@@ -4,9 +4,9 @@
  ***************************************************************************/
 
  /* object.h
-    Zawiera klasy Object - podstawową klasę dla obiektów nie wyświetlanych
-    na ekranie oraz związaną klasę IdManager, która przechowuje unikalne
-    identyfikatory każdej klasy -- pozwala to na garbage collection. */
+    Contains the classes Object - a base class for objects not displayed
+    and an associated class IdManager, which stores unique IDs of each
+    Objectk -- it allows for garbage collection. */
 
 #pragma once
 
@@ -53,7 +53,7 @@ class IdDatabase : public Object
     bool remove(int id);
 
     inline static IdDatabase* instance()
-      { return _instance;; }
+      { return _instance; }
 
     inline int genericId()
       { return ++_nextGenericId; }

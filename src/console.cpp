@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* console.cpp
-    Zawiera implementację klasy Console. */
+    Contains the implementation of Console class. */
 
 #include "console.h"
 

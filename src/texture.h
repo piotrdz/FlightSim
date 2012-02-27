@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* texture.h
-    Zawiera klasę TextureLoader, która umożliwia ładowanie
-    tekstur z plików. */
+    Contains the class TextureLoader, which enables loading of textures
+    from files. */
 
 #pragma once
 

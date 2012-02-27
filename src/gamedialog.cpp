@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* gamedialog.cpp
-    Zawiera implementację klasy GameDialog. */
+    Contains the implementation of the GameDialog class. */
 
 #include "gamedialog.h"
 
@@ -16,7 +16,7 @@
 
 using namespace std;
 
-GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Ustawienia gry")
+GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Game settings")
 {
   enableInput();
 
@@ -27,7 +27,7 @@ GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Ustawienia gry")
   Font *f = Decorator::instance()->getFont(FT_Normal);
   Color c = Decorator::instance()->getColor(C_Text);
 
-  _playerAmmoLabel = new Label(this, "Amunicja (-1 = niesk.):", f,
+  _playerAmmoLabel = new Label(this, "Ammo (-1 = infinite):", f,
                                AL_Left | AL_VCenter, true, c);
   _playerAmmoLabel->show();
 
@@ -35,7 +35,7 @@ GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Ustawienia gry")
   _playerAmmoEdit->show();
   addFocusControl(_playerAmmoEdit);
 
-  _enemyCountLabel = new Label(this, "Liczba przeciwników:", f,
+  _enemyCountLabel = new Label(this, "Number of enemies:", f,
                                AL_Left | AL_VCenter, true, c);
   _enemyCountLabel->show();
 
@@ -43,31 +43,31 @@ GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Ustawienia gry")
   _enemyCountEdit->show();
   addFocusControl(_enemyCountEdit);
 
-  _enemyActionsLabel = new Label(this, "Możliwości AI:", f,
+  _enemyActionsLabel = new Label(this, "AI capabilities:", f,
                             AL_Left | AL_VCenter, true, c);
   _enemyActionsLabel->show();
 
-  _enemyAcceleration = new CheckBox(this, "Przyspieszanie", false, true);
+  _enemyAcceleration = new CheckBox(this, "Acceleration", false, true);
   _enemyAcceleration->show();
   addFocusControl(_enemyAcceleration);
 
-  _enemyTurning = new CheckBox(this, "Skręcanie", false, true);
+  _enemyTurning = new CheckBox(this, "Turning", false, true);
   _enemyTurning->show();
   addFocusControl(_enemyTurning);
 
-  _enemyPitching = new CheckBox(this, "Zmiana wysokości", false, true);
+  _enemyPitching = new CheckBox(this, "Changing altitude", false, true);
   _enemyPitching->show();
   addFocusControl(_enemyPitching);
 
-  _enemyEvasiveActions = new CheckBox(this, "Manewry unikające", false, true);
+  _enemyEvasiveActions = new CheckBox(this, "Evasive manouvers", false, true);
   _enemyEvasiveActions->show();
   addFocusControl(_enemyEvasiveActions);
 
-  _nextButton = new Button(this, "Dalej ->", true);
+  _nextButton = new Button(this, "Next ->", true);
   _nextButton->show();
   addFocusControl(_nextButton);
 
-  _backButton = new Button(this, "<- Powrót", true);
+  _backButton = new Button(this, "<- Back", true);
   _backButton->show();
   addFocusControl(_backButton);
 }

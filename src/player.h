@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* player.h
-    Zawiera klasę Player, która opisuje parametry opisujące gracza
-    i odpowiada za ich uaktualnianie. */
+    Contains the Player class, which contains the data describing a player
+    and is responsible for updating it. */
 
 #pragma once
 
@@ -22,38 +22,27 @@
 class Model;
 class Map;
 
-//! Gracz
+
 class Player
 {
   public:
-    //! Rodzaj kontroli
     enum ControlType
     {
-      //! Prędkość kątowa
       Control_AngularVelocity,
-      //! Przyspieszenie kątowe
       Control_AngularAcceleration
     };
 
-    //! Drużyna
     enum Team
     {
-      //! Niebieska
       Team_Blue,
-      //! Czerwona
       Team_Red
     };
 
-    //! Rodzaj akcji podejmowanej przez AI
     enum AIActions
     {
-      //! Przyspieszanie
       AI_Acceleration  = 0x01,
-      //! Skręcanie
       AI_Turning       = 0x02,
-      //! Zmiana wysokości
       AI_Pitching      = 0x04,
-      //! Manewry unikające
       AI_EvasiveAction = 0x08
     };
 
@@ -61,18 +50,14 @@ class Player
     Player(Map *pMap);
     virtual ~Player();
 
-    //! @{ Do obsługi modelu
     static void initModel();
     static void destroyModel();
 
     inline static const Model* model()
       { return _model; }
-    //! @}
 
-    //! Reset na początkowe wartości
     void reset();
 
-    //! @{ Akcesory
     inline void setName(const std::string &pName)
       { _name = pName; }
     inline std::string name() const
@@ -171,82 +156,54 @@ class Player
     Vector3D angularControl() const;
 
     Vector3D maximumAngularControl() const;
-    //! @}
 
-    //! Sprawdzenie uderzenia pocisku
     void checkHit(Bullet *bullet);
 
-    //! Wyświetla model gracza wraz z ramką (frameRotation to obrót względny ramki)
     void render(float frameRotation = 0.0f);
 
-    //! Aktualizuje parametry gracza
     void update();
 
-    //! Resetuje timery (potrzebne po wznowieniu gry)
     void resetTimers();
 
-    //! Zwraca listę utworzonych ostatnio pocisków
     std::vector<Bullet*> createdBullets();
 
   private:
-    //! Model myśliwca
     static Model *_model;
 
-    //! @{ Timery
     Timer _updateTimer, _firingTimer, _aiTimer;
-    //! @}
 
-    //! Obiekt mapy
     Map *_map;
 
-    //! Nazwa gracza
     std::string _name;
 
-    //! Drużyna, do której należy gracz
     Team _team;
-    //! Czy wyświetlać ramkę dookoła
     bool _frameVisible;
-    //! Rodzaj kontroli
     ControlType _controlType;
-    //! HP
     int _hp;
-    //! Przezroczystość
     float _fade;
-    //! Pozostała amunicja (-1 -> nieskończona)
     int _ammo;
-    //! Czy strzela?
     bool _firing;
-    //! Lista utworzonych ostatnio pocisków
     std::vector<Bullet*> _createdBullets;
 
-    //! @{ Ustawienia AI
     bool _ai;
     int _aiActions;
     int _aiState, _lastAIState;
     float _aiParam, _lastAIParam;
-    //! @}
 
-    //! @{ Parametry obrotu i zmiany obrotu
     Vector3D _angularAcceleration;
     Vector3D _angularVelocity;
     Rotation _rotation;
-    //! @}
 
-    //! @{ Parametry położenia i zmiany położenia
     Vector3D _acceleration;
     Vector3D _velocity;
     float _velocityValue;
     Vector3D _position;
     int _quadPositionX, _quadPositionZ;
-    //! @}
 
-    //! @{ Nastawy kontroli
     float _accelerationControl;
     Vector3D _angularVelocityControl;
     Vector3D _angularAccelerationControl;
-    //! @}
 
-    //! @{ Stałe wartości max i min
     static const int MAX_HP;
 
     static const float MAX_ACCELERATION;
@@ -255,5 +212,4 @@ class Player
 
     static const Vector3D MAX_ANGULAR_ACCELERATION;
     static const Vector3D MAX_ANGULAR_VELOCITY;
-    //! @}
 };

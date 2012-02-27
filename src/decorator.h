@@ -4,9 +4,9 @@
  ***************************************************************************/
 
  /* decorator.h
-    Zawiera klasę Decorator, która odpowiada za jednolity wygląd
-    interfejsu (rozmiary czcionek, kolory, rysowanie ramek)
-    i klasę RoundRect rysującą zaokrąglone prostokąty. */
+    Contains the Decorator class, which is responsible for drawing interface
+    primitives, giving them identical "look'n'feel" (colors, sizes of fonts,
+    etc.) and the class RoundRect, drawing rectangles with rounded corners. */
 
 #pragma once
 

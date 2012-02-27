@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* simulation.cpp
-    Zawiera implementację klasy Simulation. */
+    Contains the implementation of Simulation class. */
 
 #include "simulation.h"
 
@@ -44,7 +44,7 @@ Simulation::Simulation(Widget* pParent,
   _map->setScale(Vector3D(20.0f, 800.0f, 20.0f));
 
   _player = new Player(_map);
-  _player->setName("Gracz");
+  _player->setName("Player");
   _player->setTeam(Player::Team_Blue);
   _player->setControlType(Player::Control_AngularVelocity);
   _player->setAI(false);
@@ -59,14 +59,14 @@ Simulation::Simulation(Widget* pParent,
   _messageTimer.setIntervalMsec(50);
 
 
-  _initializingLabel = new Label(this, "Inicjowanie mapy...",
+  _initializingLabel = new Label(this, "Initializing the map...",
                                  Decorator::instance()->getFont(FT_Big),
                                  AL_Center, false,
                                  Decorator::instance()->getColor(C_Text),
                                  true);
   _initializingLabel->show();
 
-  _collisionLabel = new Label(this, "Kolizja!",
+  _collisionLabel = new Label(this, "Collision!",
                               Decorator::instance()->getFont(FT_SimulationWarning),
                               AL_Center, false,
                               Color(1.0f, 0.0f, 0.0f),
@@ -77,9 +77,9 @@ Simulation::Simulation(Widget* pParent,
                             Decorator::instance()->getColor(C_Text));
 
   vector<string> menuItems;
-  menuItems.push_back("Powrót do gry");
-  menuItems.push_back("Ustawienia");
-  menuItems.push_back("Zakończ grę");
+  menuItems.push_back("Return to the game");
+  menuItems.push_back("Settings");
+  menuItems.push_back("Exit the game");
   _menu = new Menu(this, "", menuItems, true, name() + "_Menu");
 
   BindingManager *b = BindingManager::instance();
@@ -214,7 +214,7 @@ void Simulation::addEnemies(int count, int aiActions)
   {
     Player *enemy = new Player(_map);
     enemy->setTeam(Player::Team_Red);
-    enemy->setName(string("Komputer ") + toString<int>(i));
+    enemy->setName(string("Computer ") + toString<int>(i));
     enemy->setAI(true);
     enemy->setAIActions(aiActions);
 
@@ -280,7 +280,7 @@ void Simulation::render()
 
   glLoadIdentity();
 
-  // Macierz do zmiany kierunku osi Z
+  // Matrix for switching Z-axis direction
   const float switchZMatrix[16] =
   {
     1.0f, 0.0f, 0.0f, 0.0f,
@@ -293,31 +293,31 @@ void Simulation::render()
 
   if (_viewMode == View_Outside)
   {
-    // Translacja widoku zewnętrznego
+    // Translation of outside view
     glTranslatef(0.0f, 0.0f, _outsideViewZoom);
 
-    // Obrót widoku zewnętrznego
+    // Rotation of outside view
     glRotatef(_outsideViewAngles.x, 1.0f, 0.0f, 0.0f);
     glRotatef(_outsideViewAngles.y, 0.0f, 1.0f, 0.0f);
   }
 
-  // Obrót przeciwny do gracza ("ziemia" obraca się przeciwnie do gracza)
+  // Rotation inverse to the player ("ground" turns the opposite direction to the player)
   float rotationMatrix[16] = { 0.0f };
   _player->rotation().toGLMatrix(rotationMatrix);
   glMultMatrixf(rotationMatrix);
 
-  // Translacja gracza
+  // Player translation
   glTranslatef(-_player->positionOffset().x,
                -_player->positionOffset().y,
                -_player->positionOffset().z);
 
   glColor3f(1.0f, 1.0f, 1.0f);
 
-  // Światło to "słońce" padające ze stałego kierunku
+  // Light is a "sun" coming from fixed direction
   float lightPosition[] = { -50.0f, 50.0f, 0.0f, 0.0f };
   glLightfv(GL_LIGHT1, GL_POSITION, lightPosition);
 
-  // Materiał mapy
+  // Ground material
   const float mapSpecular[] = { 0.05f, 0.11f, 0.0f, 0.04f };
   glMaterialfv(GL_FRONT, GL_SPECULAR, mapSpecular);
 
@@ -342,7 +342,7 @@ void Simulation::render()
     glEnable(GL_FOG);
   }
 
-  /* Rysowanych jest tylko 25 pól mapy:
+  /* Only 25 fields of the map are rendered:
 
       2 2 2 2 2
       2 1 1 1 2
@@ -350,13 +350,13 @@ void Simulation::render()
       2 1 1 1 2
       2 2 2 2 2
 
-      0 - "zerowe" pole
+      0 - "zero" field
    */
 
 
-  // Współrzędne pól do narysowania:
+  // Field coordinates to be drawn:
 
-  // Poziom "1"
+  // Level "1"
   const int LEVEL_1[][2] =
   {
     { 1, 0}, { 1,  1}, {0,  1}, {-1,  1},
@@ -364,7 +364,7 @@ void Simulation::render()
   };
   const int LEVEL_1_SIZE = sizeof(LEVEL_1) / sizeof(*LEVEL_1);
 
-  // Poziom "2"
+  // Level "2"
   const int LEVEL_2[][2] =
   {
     { 2,  0}, { 2,  1}, { 2,  2}, { 1,  2},
@@ -419,19 +419,19 @@ void Simulation::render()
     glDisable(GL_FOG);
 
 
-  // Rysowanie innych elementów poza mapą
+  // Drawing other element beside the map
   glPushMatrix();
   {
     Vector3D mapOffset = _player->mapOffset();
     glTranslatef(-mapOffset.x, -mapOffset.y, -mapOffset.z);
 
-    // Rysowanie modelu samolotu w widoku zewnętrznym
+    // Model of the player's plane in outside view
     if (_viewMode == View_Outside)
     {
       _player->render();
     }
 
-    // Rysowanie przeciwników i pocisków
+    // Enemies and bullets
     if (_simulationType == Simulation_Game)
     {
       for (list<Player*>::iterator it = _enemyPlayers.begin();
@@ -462,7 +462,7 @@ void Simulation::render()
 
   Render::instance()->end3D();
 
-  // Renderowanie HUD w 2D
+  // HUD
   renderHud();
 }
 
@@ -474,7 +474,7 @@ void Simulation::renderHud()
   float margin = Decorator::instance()->getDefaultMargin();
   glColor3f(0.0f, 1.0f, 0.0f);
 
-  // Znacznik na środku ekranu
+  // Crosshair at the center
   glPushMatrix();
   {
     glTranslatef(0.5f * geometry().w, 0.5f * geometry().h, 0.0f);
@@ -495,7 +495,7 @@ void Simulation::renderHud()
     }
     glEnd();
 
-    // Napisy dookoła
+    // Labels around the center
 
     FontMetrics bigMetrics(_bigHudFont);
 
@@ -518,7 +518,7 @@ void Simulation::renderHud()
   FontMetrics metrics(_hudFont);
   int fontHeight = metrics.height();
 
-  // Wskaźniki kierunku
+  // Direction markers
 
   glPushMatrix();
   {
@@ -573,7 +573,7 @@ void Simulation::renderHud()
   }
   glPopMatrix();
 
-  // Wskaźniki nachylenia
+  // Pitch markers
 
   glPushMatrix();
   {
@@ -685,7 +685,7 @@ void Simulation::renderHud()
 
       Vector3D offset = _player->positionOffset() * (radarSize / RADAR_RANGE);
 
-      // Siatka
+      // Grid
       glPushMatrix();
       {
         glRotatef(-_player->rotation().heading(), 0.0f, 0.0f, 1.0f);
@@ -713,7 +713,7 @@ void Simulation::renderHud()
       }
       glPopMatrix();
 
-      // Kropka gracza
+      // Player's dot
       glColor3fv(_player->color());
 
       glPointSize(4.0f);
@@ -724,7 +724,7 @@ void Simulation::renderHud()
       }
       glEnd();
 
-      // Pozycje przeciwników
+      // Enemy positions
       glPushMatrix();
       {
         for (list<Player*>::iterator it = _enemyPlayers.begin();
@@ -802,7 +802,7 @@ void Simulation::update()
 
   _player->update();
 
-  // Aktualizacja przeciwników
+  // Update of enemies
   if (_simulationType == Simulation_Game)
   {
     for (list<Player*>::iterator it = _enemyPlayers.begin();
@@ -834,16 +834,16 @@ void Simulation::update()
       stringstream amms;
       amms << "Am: ";
       if (_player->ammo() == -1)
-        amms << "niesk.";
+        amms << "inf.";
       else
         amms << _player->ammo();
       _ammoString = amms.str();
     }
 
-    // Aktualizacja kątów widoku
+    // Update of view angles
     _outsideViewAngles += delta * _outsideViewAnglesAcc;
 
-    // Wykrywanie kolizji
+    // Collision detection
     if (_player->height() <= _map->quadSize().y)
     {
       if (_player->altitude() <= 0.0f)
@@ -856,12 +856,12 @@ void Simulation::update()
 
     if (_simulationType == Simulation_Game)
     {
-      // Dodanie nowych pocisków
+      // Adding new bullets
       vector<Bullet*> newBullets = _player->createdBullets();
       for (unsigned int i = 0; i < newBullets.size(); ++i)
         _bullets.push_back(newBullets[i]);
 
-      // Aktualizacja pocisków
+      // Update of bullets
       for (list<Bullet*>::iterator it = _bullets.begin();
            it != _bullets.end(); ++it)
       {
@@ -883,13 +883,13 @@ void Simulation::update()
         }
       }
 
-      // Aktualizacja zniszczeń przeciwników
+      // Update of enemy destruction
       for (list<Player*>::iterator jt = _enemyPlayers.begin();
           jt != _enemyPlayers.end(); ++jt)
       {
         if ((*jt)->destroyed())
         {
-          displayMessage(string("Przeciwnik ") + (*jt)->name() + " zestrzelony!");
+          displayMessage(string("Enemy ") + (*jt)->name() + " shot down!");
 
           delete *jt;
           jt = _enemyPlayers.erase(jt);
@@ -899,7 +899,7 @@ void Simulation::update()
       if (_enemyPlayers.empty() && (!_enemiesDestroyed))
       {
         _enemiesDestroyed = true;
-        displayMessage("Zestrzeliłeś wszystkich przeciwników. Gratulacje!");
+        displayMessage("You have eliminated all enemies. Congratulations!");
       }
     }
   }
@@ -1039,25 +1039,25 @@ void Simulation::keyboardDownEvent(KeyboardDownEvent* e)
   {
     _fog = !_fog;
     if (_fog)
-      displayMessage("Mgła włączona");
+      displayMessage("Fog: on");
     else
-      displayMessage("Mgła wyłączona");
+      displayMessage("Fog: off");
   }
   else if (b->findKey("Hud").check(keysym))
   {
     if (_hudMode == Hud_Full)
     {
-      displayMessage("HUD: minimalny");
+      displayMessage("HUD: minimal");
       _hudMode = Hud_Minimal;
     }
     else if (_hudMode == Hud_Minimal)
     {
-      displayMessage("HUD: wyłączony");
+      displayMessage("HUD: off");
       _hudMode = Hud_None;
     }
     else if (_hudMode == Hud_None)
     {
-      displayMessage("HUD: pełny");
+      displayMessage("HUD: full");
       _hudMode = Hud_Full;
     }
   }
@@ -1065,12 +1065,12 @@ void Simulation::keyboardDownEvent(KeyboardDownEvent* e)
   {
     if (_viewMode == View_Cockpit)
     {
-      displayMessage("Widok: z zewnątrz");
+      displayMessage("View: outside");
       _viewMode = View_Outside;
     }
     else if (_viewMode == View_Outside)
     {
-      displayMessage("Widok: kokpit");
+      displayMessage("View: cockpit");
       _viewMode = View_Cockpit;
     }
   }
@@ -1327,10 +1327,10 @@ void Simulation::command(const std::string &commandStr)
     Vector3D pos = _player->positionOffset();
     pos += 100.0f * _player->rotation().mainAxis();
     p->setPositionOffset(pos);
-    print(string("Ustawienie gracza ") + p->name());
+    print(string("Setting polayer ") + p->name());
   }
   else
   {
-    print("Nieznane polecenie");
+    print("Invalid command");
   }
 }

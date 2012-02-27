@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* fractal.cpp
-    Zawiera implementację klasy Fractal. */
+    Contains the implementation of the Fractal class. */
 
 #include "fractal.h"
 
@@ -15,7 +15,7 @@
 
 using namespace std;
 
-// Brzydki hack
+// Ugly hack
 #if defined(WIN32) || defined(_WIN32)
 int rand_r(unsigned int *seedp)
 {

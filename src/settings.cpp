@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* settings.cpp
-    Zawiera implementację klasy Settings. */
+    Contains the implementation of the Settings class. */
 
 #include "settings.h"
 #include "application.h"
@@ -28,7 +28,7 @@ Settings::Settings() : Object("Settings")
   FileManager::instance()->registerFile("SettingsFile", "data/settings.rc");
   if (!FileManager::instance()->canWrite("SettingsFile"))
   {
-    print(string("Nie można otworzyć do zapisu pliku ustawień: '") +
+    print(string("Could not open settings file: '") +
           FileManager::instance()->fileName("SettingsFile") + "'");
     Application::instance()->quit(1);
   }
@@ -46,7 +46,7 @@ void Settings::registerSetting(const string &key,
   map<string, Setting>::iterator it = _settingsMap.find(key);
   if (it != _settingsMap.end())
   {
-    print(string("Nie można zarejestrować dwa razy tego samego klucza: '") + key + "'!");
+    print(string("Keys cannot be registered twice: '") + key + "'!");
     Application::instance()->quit(1);
     return;
   }
@@ -62,7 +62,7 @@ void Settings::setSetting(const string &key, const string &value)
   map<string, Setting>::iterator it = _settingsMap.find(key);
   if (it == _settingsMap.end())
   {
-    print("Brak klucza: '" + key + "'!");
+    print("No key: '" + key + "'!");
     Application::instance()->quit(1);
     return;
   }
@@ -77,7 +77,7 @@ string Settings::setting(const string &key) const
   map<string, Setting>::const_iterator it = _settingsMap.find(key);
   if (it == _settingsMap.end())
   {
-    print("Brak klucza: '" + key + "'!");
+    print("No key: '" + key + "'!");
     Application::instance()->quit(1);
     return "";
   }
@@ -98,8 +98,8 @@ void Settings::load()
 
   if (!file.good())
   {
-    print(string("Nie można otworzyć pliku ustawień: '") + fileName + "'");
-    print("Wczytywanie jedynie domyślnych wartości");
+    print(string("Could not open settings file: '") + fileName + "'");
+    print("Loading only defaults");
     return;
   }
 
@@ -117,7 +117,7 @@ void Settings::load()
     size_t pos = line.find('=');
     if (pos == string::npos)
     {
-      print(string("Zły format linii ustawień (linia ") + toString<int>(lineNo) + ")");
+      print(string("Invalid format of settings line (line ") + toString<int>(lineNo) + ")");
       continue;
     }
 
@@ -126,7 +126,7 @@ void Settings::load()
     map<string, Setting>::iterator it = _settingsMap.find(key);
     if (it == _settingsMap.end())
     {
-      print(string("Nieznany klucz '" + key + "' (linia ") + toString<int>(lineNo) + ")");
+      print(string("Unregistered key '" + key + "' (line ") + toString<int>(lineNo) + ")");
       continue;
     }
 
@@ -140,12 +140,12 @@ void Settings::save()
   ofstream file(fileName.c_str());
   if (!file.good())
   {
-    print(string("Nie można zapisać pliku ustawień: '") + fileName + "'!");
+    print(string("Could not save settings file: '") + fileName + "'!");
     Application::instance()->quit(1);
     return;
   }
 
-  file << "# Ustawienia " << Application::instance()->applicationName() <<
+  file << "# Settings for " << Application::instance()->applicationName() <<
           " " << Application::instance()->applicationVersion() << endl;
 
   for (map<string, Setting>::iterator it = _settingsMap.begin();

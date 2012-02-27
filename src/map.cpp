@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* map.cpp
-    Zawiera implementację klasy Map i jej klas wewnętrznych. */
+    Contains the implementation of the Map class and its inner classes. */
 
 #include "map.h"
 
@@ -76,7 +76,7 @@ void Map::Quad::generate(Quad* neighbors[4], const Vector3D &scale,
     }
   }
 
-  // Wygładzanie dla nowo wygenerowanych krawędzi
+  // Smooting of newly generated edges
 
   if (neighbors[0] == NULL)
   {
@@ -208,7 +208,7 @@ void Map::Quad::calculateNormals(Quad* neighbors[4], const Vector3D &scale)
     }
   }
 
-  // Krawędzie z sąsiednich pól
+  // Edges of neighboring fields
 
   if (neighbors[0] != NULL)
   {
@@ -636,7 +636,7 @@ Map::~Map()
     SDL_WaitThread(_workerThread, &status);
 
     stringstream p;
-    p << "Wątek roboczy zakończony z kodem: " << status;
+    p << "Worker thread finished with status code: " << status;
     print(p.str());
 
     _workerThread = NULL;
@@ -678,7 +678,7 @@ void Map::initFunctions()
 void Map::createWorkerThread()
 {
   _workerThread = SDL_CreateThread(Worker::run, (void*)(_worker));
-  print("Utworzono wątek roboczy");
+  print("Worker thread created");
 }
 
 void Map::clear()
@@ -727,7 +727,7 @@ bool Map::init()
 
   if (!_initializing)
   {
-    print("Inicjowanie mapy");
+    print("Initializing map");
 
     clear();
 
@@ -746,7 +746,7 @@ bool Map::init()
 
   if (_initIndex >= TASKS_SIZE)
   {
-    print("Inicjowanie mapy zakończone");
+    print("Map initialization finished");
     _initializing = false;
 
     return true;
@@ -813,7 +813,7 @@ void Map::scheduleTask(int x, int z)
 
   {
     stringstream p;
-    p << "Tworzenie pola: (" << x << ", " << z << ")";
+    p << "Creating field: (" << x << ", " << z << ")";
     print(p.str());
   }
 
@@ -831,7 +831,7 @@ void Map::update()
 
     {
       stringstream p;
-      p << "Utworzono pole: (" << task.x << ", " << task.z << ")";
+      p << "Created field: (" << task.x << ", " << task.z << ")";
       print(p.str());
     }
 
@@ -869,7 +869,7 @@ void Map::update()
 
     {
       stringstream p;
-      p << "Usuwanie pola: (" << q.first << ", " << q.second << ")";
+      p << "Deleting field: (" << q.first << ", " << q.second << ")";
       print(p.str());
     }
 

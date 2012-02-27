@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* simulation.h
-    Zawiera klasę Simulation - symulatora lotu. */
+    Contains the Simulation class - the flight simulator. */
 
 #pragma once
 
@@ -23,21 +23,15 @@ class Label;
 class Font;
 class Menu;
 
-//! Klasa symulacji
-/**
-  * Odpowiada za rysowanie widoku 3D symulacji, zawiera obiekty mapy, graczy, pocisków.
- */
 class Simulation : public Widget
 {
   public:
-    //! Parametry zdarzeń przekazywanych do Render
     enum Actions
     {
       Action_Settings,
       Action_EndGame
     };
 
-    //! Jakość wyświetlania = poziom detali mapy
     enum DisplayQuality
     {
       Quality_Low = 0,
@@ -46,32 +40,22 @@ class Simulation : public Widget
       Quality_VeryHigh = 3
     };
 
-    //! Rodzaj widoku
     enum ViewMode
     {
-      //! Widok z kokpitu
       View_Cockpit,
-      //! Widok z zewnątrz na samolot
       View_Outside
     };
 
-    //! Rodzaj wyświetlanego HUD
     enum HudMode
     {
-      //! Brak
       Hud_None,
-      //! Tylko wskaźnik kierunku
       Hud_Minimal,
-      //! Pełny
       Hud_Full
     };
 
-    //! Rodzaj symulacji
     enum SimulationType
     {
-      //! Zwykła symulacja
       Simulation_Normal,
-      //! Gra z przeciwnikami
       Simulation_Game
     };
 
@@ -80,7 +64,6 @@ class Simulation : public Widget
                const std::string &pName);
     virtual ~Simulation();
 
-    //! @{ Akcesory do ustawiania parametrów
     inline void setFractalOptions(const FractalOptions &pOptions)
       { _fractal.setOptions(pOptions); }
 
@@ -94,31 +77,21 @@ class Simulation : public Widget
 
     inline void setPlayerAmmo(int ammo)
       { _player->setAmmo(ammo); }
-    //! @}
 
-    //! Wczytanie ustawień
     void loadSettings();
-    //! Reset do początkowego stanu
     void reset();
 
-    //! Dodanie przeciwników
     void addEnemies(int count, int aiActions);
 
-    //! Inicjalizacja OpenGL
     virtual void init();
-    //! Wyświetlanie sceny
     virtual void render();
-    //! Aktualizacja
     virtual void update();
 
-    //! Zamknięto dialog ustawień
     void settingsDialogFinished();
 
-    //! Obsługa komendy z konsoli
     void command(const std::string &commandStr);
 
   protected:
-    //! @{ Obsługa zdarzeń
     virtual void resizeEvent();
     virtual void showEvent();
     virtual void hideEvent();
@@ -132,84 +105,50 @@ class Simulation : public Widget
     virtual void joystickHatEvent(JoystickHatEvent* e);
 
     virtual void childEvent(Widget *sender, int parameter);
-    //! @}
 
   private:
-    //! Fraktal plazmowy
     Fractal _fractal;
-    //! Mapa
     Map *_map;
-    //! Czy mapa jest w trakcie wstępnego generowania
     bool _initializing;
 
-    //! Typ symulacji (symulacja, gra z przeciwnikami)
     SimulationType _simulationType;
-
-    //! Gracz
     Player* _player;
-    //! Lista graczy - przeciwników
     std::list<Player*> _enemyPlayers;
-    //! Czy przeciwnicy zostali wyeliminowani?
     bool _enemiesDestroyed;
-
-    //! Lista pocisków
     std::list<Bullet*> _bullets;
-
-    //! Timer do uaktualniania stanu symulacji
     Timer _updateTimer;
 
-    //! Poziom detali mapy
     DisplayQuality _displayQuality;
-    //! Rodzaj widoku
     ViewMode _viewMode;
-    //! Szerkość pola widzenia (y)
     float _fov;
-    //! Czy widoczna mgła
     bool _fog;
-    //! Odległość od samolotu w widoku z zewnątrz
     float _outsideViewZoom;
-    //! Kąty (X i Y) widoku z zewnątrz
     Vector3D _outsideViewAngles;
-    //! Przyspieszenie zmiany kątów widoku
     Vector3D _outsideViewAnglesAcc;
-    //! Rodzaj HUD
+
     HudMode _hudMode;
-    //! @{ Czcionki liczb wyświetlanych na HUD
+
     Font *_hudFont, *_bigHudFont;
-    //! @}
-    //! @{ Napisy wyświetlane na HUD
+
     std::string _heightString, _altitudeString;
     std::string _velocityString, _ammoString;
-    //! @}
 
-    //! Menu wyświelane w grze
     Menu *_menu;
 
-    //! Ramka wyświetlana podczas inicjalizacji
     Rect _initializingFrame;
-    //! @{ Napisy wyświetlane w czasie gry
+
     Label *_initializingLabel;
     Label *_collisionLabel;
     Label *_messageLabel;
-    //! @}
 
-    //! Timer wiadomości
     Timer _messageTimer;
 
-    //! Zasięg widoku
     static const float VISIBLE_RANGE;
-    //! Zasięg radaru
     static const float RADAR_RANGE;
 
-    //! Wyświetla wiadomość na dole ekranu
     void displayMessage(const std::string &message);
-
-    //! Usuwa wszystkich graczy
     void deleteEnemyPlayers();
-    //! Usuwa wszystkie pociski
     void deleteBullets();
-    //! Resetuje timery (potrzebne po wznowieniu symulacji)
     void resetTimers();
-    //! Wyświetla HUD
     void renderHud();
 };

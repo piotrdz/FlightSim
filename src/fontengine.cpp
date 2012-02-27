@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* fontengine.cpp
-    Zawiera implementację klas i struktur z fontengine.h. */
+    Contains the implementation of classes and structs from fontengine.h. */
 
 #include "fontengine.h"
 
@@ -37,7 +37,7 @@ FontManager::FontManager() : Object("FontManager")
   {
     if (TTF_Init() != 0)
     {
-      print("Błąd TTF_Init: " + string(TTF_GetError()));
+      print("TTF_Init error: " + string(TTF_GetError()));
       Application::instance()->quit(1);
     }
   }
@@ -117,7 +117,7 @@ Font::Font(const FontOptions &pOptions) : Object(genericName("Font")),
   {
     if (TTF_Init() != 0)
     {
-      print("Błąd TTF_Init: " + string(TTF_GetError()));
+      print("TTF_Init error: " + string(TTF_GetError()));
       Application::instance()->quit(1);
     }
   }
@@ -126,7 +126,7 @@ Font::Font(const FontOptions &pOptions) : Object(genericName("Font")),
                        _fontOptions.pointSize);
   if (!_font)
   {
-    print("Nie można wczytać czcionki: " + string(TTF_GetError()));
+    print("Could not open font: " + string(TTF_GetError()));
     Application::instance()->quit(1);
   }
 }
@@ -157,7 +157,7 @@ void Font::changeOptions(const FontOptions &newOptions)
 
   if (!_font)
   {
-    print("Nie można wczytać czcionki: " + string(TTF_GetError()));
+    print("Could not open font: " + string(TTF_GetError()));
     Application::instance()->quit(1);
   }
 }
@@ -239,21 +239,21 @@ void Font::renderTextUTF8(const string &text, const Point &location)
     bool ascii = false;
 
     char c1 = *it;
-    // Znak 1-bajtowy (ASCII)
+    // 1-byte char (ASCII)
     if ((c1 & 0x80) == 0)
     {
       character.bytes[0] = c1;
       ascii = true;
       ++it;
     }
-    // Znak 2-bajtowy
+    // 2-byte
     else if ((c1 & 0xE0) == 0xC0)
     {
       character.bytes[0] = c1;
       character.bytes[1] = *(++it);
       ++it;
     }
-    // Znak 3-bajtowy
+    // 3-byte
     else if ((c1 & 0xF0) == 0xE0)
     {
       character.bytes[0] = c1;
@@ -261,7 +261,7 @@ void Font::renderTextUTF8(const string &text, const Point &location)
       character.bytes[2] = *(++it);
       ++it;
     }
-    // Znak 4-bajtowy
+    // 4-byte
     else if ((c1 & 0xF8) == 0xF0)
     {
       character.bytes[0] = c1;
@@ -270,7 +270,7 @@ void Font::renderTextUTF8(const string &text, const Point &location)
       character.bytes[3] = *(++it);
       ++it;
     }
-    // Znak niepoprawny, ale traktujemy jako ASCII
+    // Invalid char, but treated as ASCI
     else
     {
       character.bytes[0] = c1;
@@ -347,7 +347,7 @@ void Font::renderStaticText(int id, const Point &location)
   CachedTexture texture = _staticCache.search(id);
   if (texture.id == 0)
   {
-    print("Nie znaleziono statycznego ID " + toString<int>(id));
+    print("Static ID " + toString<int>(id) + " not found");
     return;
   }
 
@@ -392,7 +392,7 @@ Font::CachedTexture Font::createTexture(const string &text, bool utf8)
 
   if (textSurface == NULL)
   {
-    print("Błąd TTF_Render...");
+    print("TTF_Render error...");
     return texture;
   }
 

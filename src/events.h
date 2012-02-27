@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* events.h
-    Zawiera klasy zdarzeń, które są generowane w wyniku działania
-    użytkownika lub zmiany rozmiaru okna. */
+    Contains classes of events, which are generated as a result of
+    user actions or consequence of resizing the window. */
 
 #pragma once
 

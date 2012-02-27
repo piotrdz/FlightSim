@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* render.cpp
-    Zawiera implementację klasy Render. */
+    Contains the implementation of the Render class. */
 
 #include "render.h"
 
@@ -51,10 +51,10 @@ Render::Render() : Widget(NULL, "Render")
   setVisible(true);
 
   vector<string> mainMenuItems;
-  mainMenuItems.push_back("Symulacja");
-  mainMenuItems.push_back("Gra z przeciwnikami");
-  mainMenuItems.push_back("Ustawienia");
-  mainMenuItems.push_back("Zakończ");
+  mainMenuItems.push_back("Simulation");
+  mainMenuItems.push_back("Game with opponents");
+  mainMenuItems.push_back("Settings");
+  mainMenuItems.push_back("Exit");
 
   _mainMenu = new Menu(this, "FlightSim", mainMenuItems, true, "Mode_MainMenu");
   _mainMenu->show();
@@ -163,36 +163,36 @@ void Render::update()
 
     switch (_mainMenu->index())
     {
-      // Symulacja
+      // Simulation
       case 0:
       {
-        print("Menu - symulacja");
+        print("Menu - simulation");
 
         _mapDialog->show();
         _simulation->setType(Simulation::Simulation_Normal);
         break;
       }
-      // Gra z przeciwnikami
+      // Game
       case 1:
       {
-        print("Menu - gra z przeciwnikami");
+        print("Menu - game");
 
         _mapDialog->show();
         _simulation->setType(Simulation::Simulation_Game);
         break;
       }
-      // Ustawienia
+      // Settings
       case 2:
       {
-        print("Menu - ustawienia");
+        print("Menu - settings");
 
         _settingsDialog->show();
         break;
       }
-      // Zakończ
+      // Exit
       case 3:
       {
-        print("Menu - koniec");
+        print("Menu - exit");
         Application::instance()->quit(0);
         break;
       }
@@ -397,12 +397,12 @@ void Render::consoleCommand(const std::string &command)
 
   if (cmd == "fps")
   {
-    print("Licznik FPS: włączony");
+    print("FPS counter: on");
     setFPSVisible(true);
   }
   else if (cmd == "nofps")
   {
-    print("Licznik FPS: wyłączony");
+    print("FPS counter: off");
     setFPSVisible(false);
   }
   else if (cmd == "sim")
@@ -413,18 +413,18 @@ void Render::consoleCommand(const std::string &command)
   }
   else if (cmd == "help")
   {
-    print("Dostępne komendy:");
+    print("Available commands:");
     print("  exit, quit");
     print("  fps, nofps");
     print("  sim ...");
   }
   else if ((cmd == "quit") || (cmd == "exit"))
   {
-    print("Koniec");
+    print("Exit");
     Application::instance()->quit(0);
   }
   else
   {
-    print("Nieznane polecenie");
+    print("Invalid command");
   }
 }

@@ -4,8 +4,8 @@
  ***************************************************************************/
 
  /* menu.h
-    Zawiera klasę Menu, która wyświetla listę pozycji do wybrania
-    przez użytkownika. */
+    Contains the Menu class, which displays a list of items to be chosen
+    by the user. */
 
 #pragma once
 

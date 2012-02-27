@@ -4,8 +4,8 @@
  ***************************************************************************/
 
 /* filemanager.h
-   Zawiera klasę FileManager, która pozwala na rejestrowanie i pobieranie
-   ścieżek plików danych. */
+   Contains the FileManager class, which allows for registering and
+   retrieving paths to data files. */
 
 #pragma once
 
@@ -38,4 +38,3 @@ class FileManager : public Object
     static FileManager *_instance;
     std::map<std::string, std::string> _fileMap;
 };
-

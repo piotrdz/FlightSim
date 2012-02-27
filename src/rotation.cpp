@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* rotation.cpp
-    Zawiera implementację struktury Quaternion i klasy Rotation. */
+    Contains the implementation of struct Quaternion and class Rotation. */
 
 #include "rotation.h"
 #include "common.h"
@@ -277,7 +277,7 @@ void Rotation::reverseToGLMatrix(float (&matrix)[16]) const
 
 void Rotation::update()
 {
-  // Wyznaczenie osi lokalnych z macierzy obrotu
+  // Determining the local axes from rotation matrix
 
   float qm[3][3] = { {0.0f} };
   _quaternion.toMatrix(qm);
@@ -297,11 +297,11 @@ void Rotation::update()
   _sideAxis.z = qm[2][0];
   _sideAxis.normalize();
 
-  // Wyliczenie kątu x - nachylenie do horyzontu (płaszczyzny XZ):
+  // Calculation of the x angle - bank angle - relative to horizon (XZ plane):
   _angles.x = _180_PI * asin(_mainAxis.y);
 
-  /* Wyliczenie kątu y - kierunku lotu, czyli kąta między
-        osią główną samolotu, a globalną osią Z: */
+  /* Calculation of y axis - direction of flight - angle between plane main
+     axis and the global Z axis: */
   Vector3D mainAxisXZ(_mainAxis.x, 0.0f, _mainAxis.z);
   _angles.y = atan2(_mainAxis.x, _mainAxis.z);
 
@@ -316,7 +316,7 @@ void Rotation::update()
   if (_angles.y > 360.0f)
     _angles.y = 360.0f - _angles.y;
 
-  // Wyliczenie kątu z - obrotu wzdłuż osi głównej samolotu:
+  // Calculation of the z angle - rotation along the main axis of the plane:
   Vector3D mainUpDiff = Vector3D(0.0f, 1.0f, 0.0f) - _mainAxis;
   Vector3D unrotSideAxis = mainUpDiff.crossProduct(_mainAxis);
   _angles.z = _sideAxis.angle(unrotSideAxis);

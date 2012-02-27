@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* label.cpp
-    Zawiera implementację klasy Label. */
+    Contains the implementation of Label class. */
 
 #include "label.h"
 

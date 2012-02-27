@@ -4,7 +4,7 @@
  ***************************************************************************/
 
  /* texture.cpp
-    Zawiera implementację klasy TextureLoader. */
+    Contains the implementation of TextureLoader class. */
 
 #include "texture.h"
 
