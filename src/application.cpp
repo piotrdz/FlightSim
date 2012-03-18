@@ -67,6 +67,8 @@ Application::Application(int argc, char **argv)
 
   FileManager::instance()->registerFile("WindowIcon", "data/icon.png");
 
+  _settings->registerSetting<string>("Locale", "en_US");
+
   _settings->registerSetting<int>("ResolutionX", 1024);
   _settings->registerSetting<int>("ResolutionY", 768);
   _settings->registerSetting<bool>("Fullscreen", false);
@@ -229,6 +231,12 @@ void Application::print(const std::string &module,
 
 void Application::init()
 {
+  // Gettext initialization
+  string locale = _settings->setting<string>("Locale");
+  setlocale(LC_ALL, locale.c_str());
+  bindtextdomain(_applicationName.c_str(), "data/tr");
+  bind_textdomain_codeset(_applicationName.c_str(), "UTF-8");
+
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
   {
     Object::print("Error in SDL_Init(): " + string(SDL_GetError()));

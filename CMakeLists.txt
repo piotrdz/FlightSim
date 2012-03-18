@@ -6,6 +6,7 @@ find_package(OpenGL REQUIRED)
 find_package(SDL REQUIRED)
 find_package(SDL_image REQUIRED)
 find_package(SDL_ttf REQUIRED)
+find_package(Gettext REQUIRED)
 
 find_package(Doxygen QUIET)
 if(DOXYGEN_FOUND)

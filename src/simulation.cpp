@@ -44,7 +44,7 @@ Simulation::Simulation(Widget* pParent,
   _map->setScale(Vector3D(20.0f, 800.0f, 20.0f));
 
   _player = new Player(_map);
-  _player->setName("Player");
+  _player->setName(_("Player"));
   _player->setTeam(Player::Team_Blue);
   _player->setControlType(Player::Control_AngularVelocity);
   _player->setAI(false);
@@ -59,7 +59,7 @@ Simulation::Simulation(Widget* pParent,
   _messageTimer.setIntervalMsec(50);
 
 
-  _initializingLabel = new Label(this, "Initializing the map...",
+  _initializingLabel = new Label(this, _("Initializing the map..."),
                                  Decorator::instance()->getFont(FT_Big),
                                  AL_Center, false,
                                  Decorator::instance()->getColor(C_Text),
@@ -77,9 +77,9 @@ Simulation::Simulation(Widget* pParent,
                             Decorator::instance()->getColor(C_Text));
 
   vector<string> menuItems;
-  menuItems.push_back("Return to the game");
-  menuItems.push_back("Settings");
-  menuItems.push_back("Exit the game");
+  menuItems.push_back(_("Return to the game"));
+  menuItems.push_back(_("Settings"));
+  menuItems.push_back(_("Exit the game"));
   _menu = new Menu(this, "", menuItems, true, name() + "_Menu");
 
   BindingManager *b = BindingManager::instance();
@@ -214,7 +214,7 @@ void Simulation::addEnemies(int count, int aiActions)
   {
     Player *enemy = new Player(_map);
     enemy->setTeam(Player::Team_Red);
-    enemy->setName(string("Computer ") + toString<int>(i));
+    enemy->setName(string(_("Computer ")) + toString<int>(i));
     enemy->setAI(true);
     enemy->setAIActions(aiActions);
 
@@ -889,7 +889,7 @@ void Simulation::update()
       {
         if ((*jt)->destroyed())
         {
-          displayMessage(string("Enemy ") + (*jt)->name() + " shot down!");
+          displayMessage(replace(string(_("Enemy %1 shot down!")), "%1", (*jt)->name()));
 
           delete *jt;
           jt = _enemyPlayers.erase(jt);
@@ -899,7 +899,7 @@ void Simulation::update()
       if (_enemyPlayers.empty() && (!_enemiesDestroyed))
       {
         _enemiesDestroyed = true;
-        displayMessage("You have eliminated all enemies. Congratulations!");
+        displayMessage(_("You have eliminated all enemies. Congratulations!"));
       }
     }
   }
@@ -1039,25 +1039,25 @@ void Simulation::keyboardDownEvent(KeyboardDownEvent* e)
   {
     _fog = !_fog;
     if (_fog)
-      displayMessage("Fog: on");
+      displayMessage(_("Fog: on"));
     else
-      displayMessage("Fog: off");
+      displayMessage(_("Fog: off"));
   }
   else if (b->findKey("Hud").check(keysym))
   {
     if (_hudMode == Hud_Full)
     {
-      displayMessage("HUD: minimal");
+      displayMessage(_("HUD: minimal"));
       _hudMode = Hud_Minimal;
     }
     else if (_hudMode == Hud_Minimal)
     {
-      displayMessage("HUD: off");
+      displayMessage(_("HUD: off"));
       _hudMode = Hud_None;
     }
     else if (_hudMode == Hud_None)
     {
-      displayMessage("HUD: full");
+      displayMessage(_("HUD: full"));
       _hudMode = Hud_Full;
     }
   }
@@ -1065,12 +1065,12 @@ void Simulation::keyboardDownEvent(KeyboardDownEvent* e)
   {
     if (_viewMode == View_Cockpit)
     {
-      displayMessage("View: outside");
+      displayMessage(_("View: outside"));
       _viewMode = View_Outside;
     }
     else if (_viewMode == View_Outside)
     {
-      displayMessage("View: cockpit");
+      displayMessage(_("View: cockpit"));
       _viewMode = View_Cockpit;
     }
   }
@@ -1306,31 +1306,4 @@ void Simulation::displayMessage(const std::string& message)
   _messageLabel->setColor(c);
   _messageTimer.reset();
   _messageTimer.setEnabled(true);
-}
-
-void Simulation::command(const std::string &commandStr)
-{
-  stringstream s;
-  s.str(commandStr);
-
-  string command;
-  s >> command;
-
-  if ((_simulationType == Simulation_Game) && (command == "showcase"))
-  {
-    if (_enemyPlayers.empty())
-      return;
-
-    Player *p = _enemyPlayers.front();
-    p->setHeading(_player->rotation().heading());
-    p->setMapPosition(_player->mapPositionX(), _player->mapPositionZ());
-    Vector3D pos = _player->positionOffset();
-    pos += 100.0f * _player->rotation().mainAxis();
-    p->setPositionOffset(pos);
-    print(string("Setting polayer ") + p->name());
-  }
-  else
-  {
-    print("Invalid command");
-  }
 }

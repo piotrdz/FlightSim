@@ -16,8 +16,9 @@
 
 using namespace std;
 
-GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Game settings")
+GameDialog::GameDialog(Widget* pParent) : Dialog(pParent)
 {
+  setTitle(_("Game settings"), true);
   enableInput();
 
   _playerAmmo = -1;
@@ -27,7 +28,7 @@ GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Game settings")
   Font *f = Decorator::instance()->getFont(FT_Normal);
   Color c = Decorator::instance()->getColor(C_Text);
 
-  _playerAmmoLabel = new Label(this, "Ammo (-1 = infinite):", f,
+  _playerAmmoLabel = new Label(this, _("Ammo (-1 = infinite):"), f,
                                AL_Left | AL_VCenter, true, c);
   _playerAmmoLabel->show();
 
@@ -35,7 +36,7 @@ GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Game settings")
   _playerAmmoEdit->show();
   addFocusControl(_playerAmmoEdit);
 
-  _enemyCountLabel = new Label(this, "Number of enemies:", f,
+  _enemyCountLabel = new Label(this, _("Number of enemies:"), f,
                                AL_Left | AL_VCenter, true, c);
   _enemyCountLabel->show();
 
@@ -43,31 +44,31 @@ GameDialog::GameDialog(Widget* pParent) : Dialog(pParent, "Game settings")
   _enemyCountEdit->show();
   addFocusControl(_enemyCountEdit);
 
-  _enemyActionsLabel = new Label(this, "AI capabilities:", f,
+  _enemyActionsLabel = new Label(this, _("AI capabilities:"), f,
                             AL_Left | AL_VCenter, true, c);
   _enemyActionsLabel->show();
 
-  _enemyAcceleration = new CheckBox(this, "Acceleration", false, true);
+  _enemyAcceleration = new CheckBox(this, _("Acceleration"), false, true);
   _enemyAcceleration->show();
   addFocusControl(_enemyAcceleration);
 
-  _enemyTurning = new CheckBox(this, "Turning", false, true);
+  _enemyTurning = new CheckBox(this, _("Turning"), false, true);
   _enemyTurning->show();
   addFocusControl(_enemyTurning);
 
-  _enemyPitching = new CheckBox(this, "Changing altitude", false, true);
+  _enemyPitching = new CheckBox(this, _("Changing altitude"), false, true);
   _enemyPitching->show();
   addFocusControl(_enemyPitching);
 
-  _enemyEvasiveActions = new CheckBox(this, "Evasive manouvers", false, true);
+  _enemyEvasiveActions = new CheckBox(this, _("Evasive manouvers"), false, true);
   _enemyEvasiveActions->show();
   addFocusControl(_enemyEvasiveActions);
 
-  _nextButton = new Button(this, "Next ->", true);
+  _nextButton = new Button(this, _("Next ->"), true);
   _nextButton->show();
   addFocusControl(_nextButton);
 
-  _backButton = new Button(this, "<- Back", true);
+  _backButton = new Button(this, _("<- Back"), true);
   _backButton->show();
   addFocusControl(_backButton);
 }

@@ -16,8 +16,9 @@
 
 using namespace std;
 
-MapDialog::MapDialog(Widget* pParent) : Dialog(pParent, "Map settings")
+MapDialog::MapDialog(Widget* pParent) : Dialog(pParent)
 {
+  setTitle(_("Map settings"), true);
   enableInput();
 
   _hasTexture = false;
@@ -27,26 +28,26 @@ MapDialog::MapDialog(Widget* pParent) : Dialog(pParent, "Map settings")
   Font *f = Decorator::instance()->getFont(FT_Normal);
   Color c = Decorator::instance()->getColor(C_Text);
 
-  _distributionLabel = new Label(this, "Random distribution:", f,
+  _distributionLabel = new Label(this, _("Random distribution:"), f,
                                  AL_Left | AL_VCenter, true, c);
   _distributionLabel->show();
 
   vector<string> distributionChoices;
-  distributionChoices.push_back("Uniform");
-  distributionChoices.push_back("Normal");
-  distributionChoices.push_back("Weibull");
+  distributionChoices.push_back(_("Uniform"));
+  distributionChoices.push_back(_("Normal"));
+  distributionChoices.push_back(_("Weibull"));
   _distributionChoiceBox = new ChoiceBox(this, distributionChoices, 1, true);
   _distributionChoiceBox->show();
   addFocusControl(_distributionChoiceBox);
 
-  _param1Label = new Label(this, "Mean:", f,
+  _param1Label = new Label(this, _("Mean:"), f,
                            AL_Left | AL_VCenter, true, c);
   _param1Label->show();
   _param1Edit = new LineEdit(this);
   _param1Edit->show();
   addFocusControl(_param1Edit);
 
-  _param2Label = new Label(this, "Std deviation:", f,
+  _param2Label = new Label(this, _("Std deviation:"), f,
                            AL_Left | AL_VCenter, true, c);
   _param2Label->show();
   _param2Edit = new LineEdit(this);
@@ -54,25 +55,25 @@ MapDialog::MapDialog(Widget* pParent) : Dialog(pParent, "Map settings")
   addFocusControl(_param2Edit);
 
 
-  _clampingLabel = new Label(this, "Clamping:", f,
+  _clampingLabel = new Label(this, _("Clamping:"), f,
                              AL_Left | AL_VCenter, true, c);
   _clampingLabel->show();
 
   vector<string> clampingChoices;
-  clampingChoices.push_back("Rounding");
-  clampingChoices.push_back("Repetitive generation");
+  clampingChoices.push_back(_("Rounding"));
+  clampingChoices.push_back(_("Repetitive generation"));
   _clampingChoiceBox = new ChoiceBox(this, clampingChoices, 0, true);
   _clampingChoiceBox->show();
   addFocusControl(_clampingChoiceBox);
 
-  _minLabel = new Label(this, "Min. range:", f,
+  _minLabel = new Label(this, _("Min. range:"), f,
                         AL_Left | AL_VCenter, true, c);
   _minLabel->show();
   _minEdit = new LineEdit(this);
   _minEdit->show();
   addFocusControl(_minEdit);
 
-  _maxLabel = new Label(this, "Max. range:", f,
+  _maxLabel = new Label(this, _("Max. range:"), f,
                         AL_Left | AL_VCenter, true, c);
   _maxLabel->show();
   _maxEdit = new LineEdit(this);
@@ -80,25 +81,25 @@ MapDialog::MapDialog(Widget* pParent) : Dialog(pParent, "Map settings")
   addFocusControl(_maxEdit);
 
 
-  _mixingLabel = new Label(this, "Mixing function:", f,
+  _mixingLabel = new Label(this, _("Mixing function:"), f,
                            AL_Left | AL_VCenter, true, c);
   _mixingLabel->show();
 
   vector<string> mixingChoices;
-  mixingChoices.push_back("Gauss");
-  mixingChoices.push_back("Linear");
+  mixingChoices.push_back(_("Gauss"));
+  mixingChoices.push_back(_("Linear"));
   _mixingChoiceBox = new ChoiceBox(this, mixingChoices, 1, true);
   _mixingChoiceBox->show();
   addFocusControl(_mixingChoiceBox);
 
-  _mixingTwopointLabel = new Label(this, "Coeff. for 2-pt f.:",
+  _mixingTwopointLabel = new Label(this, _("Coeff. for 2-pt f.:"),
                                  f, AL_Left | AL_VCenter, true, c);
   _mixingTwopointLabel->show();
   _mixingTwopointEdit = new LineEdit(this);
   _mixingTwopointEdit->show();
   addFocusControl(_mixingTwopointEdit);
 
-  _mixingFourpointLabel = new Label(this, "Coeff. for 4-pt f.:",
+  _mixingFourpointLabel = new Label(this, _("Coeff. for 4-pt f.:"),
                                     f, AL_Left | AL_VCenter, true, c);
   _mixingFourpointLabel->show();
 
@@ -107,7 +108,7 @@ MapDialog::MapDialog(Widget* pParent) : Dialog(pParent, "Map settings")
   addFocusControl(_mixingFourpointEdit);
 
 
-  _scaleLabel = new Label(this, "Map scale:", f,
+  _scaleLabel = new Label(this, _("Map scale:"), f,
                           AL_Left | AL_VCenter, true, c);
   _scaleLabel->show();
 
@@ -129,15 +130,15 @@ MapDialog::MapDialog(Widget* pParent) : Dialog(pParent, "Map settings")
   _zEdit->show();
   addFocusControl(_zEdit);
 
-  _nextButton = new Button(this, "Next ->", true);
+  _nextButton = new Button(this, _("Next ->"), true);
   _nextButton->show();
   addFocusControl(_nextButton);
 
-  _backButton = new Button(this, "<- Back", true);
+  _backButton = new Button(this, _("<- Back"), true);
   _backButton->show();
   addFocusControl(_backButton);
 
-  _previewLabel = new Label(this, "Preview:", f, AL_Left | AL_VCenter, true, c);
+  _previewLabel = new Label(this, _("Preview:"), f, AL_Left | AL_VCenter, true, c);
   _previewLabel->show();
 
   writeControls();
@@ -286,8 +287,8 @@ void MapDialog::childEvent(Widget *sender, int parameter)
       case 0:
       {
         o.distribution = DT_Uniform;
-        _param1Label->setText("Min.:");
-        _param2Label->setText("Max.:");
+        _param1Label->setText(_("Min.:"));
+        _param2Label->setText(_("Max.:"));
         s1 = toString<float>(o.distributionUniformMin);
         s2 = toString<float>(o.distributionUniformMax);
         break;
@@ -295,8 +296,8 @@ void MapDialog::childEvent(Widget *sender, int parameter)
       case 1:
       {
         o.distribution = DT_Normal;
-        _param1Label->setText("Mean:");
-        _param2Label->setText("Std deviation:");
+        _param1Label->setText(_("Mean:"));
+        _param2Label->setText(_("Std deviation:"));
         s1 = toString<float>(o.distributionNormalMean);
         s2 = toString<float>(o.distributionNormalVariance);
         break;
@@ -304,8 +305,8 @@ void MapDialog::childEvent(Widget *sender, int parameter)
       case 2:
       {
         o.distribution = DT_Weibull;
-        _param1Label->setText("Scale:");
-        _param2Label->setText("Shape:");
+        _param1Label->setText(_("Scale:"));
+        _param2Label->setText(_("Shape:"));
         s1 = toString<float>(o.distributionWeibullScale);
         s2 = toString<float>(o.distributionWeibullShape);
         break;

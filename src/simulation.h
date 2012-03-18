@@ -89,8 +89,6 @@ class Simulation : public Widget
 
     void settingsDialogFinished();
 
-    void command(const std::string &commandStr);
-
   protected:
     virtual void resizeEvent();
     virtual void showEvent();

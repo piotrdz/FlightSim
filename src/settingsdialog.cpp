@@ -14,14 +14,15 @@
 using namespace std;
 
 
-SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent, "Settings")
+SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent)
 {
+  setTitle(_("Settings"), true);
   enableInput();
 
   Font *f = Decorator::instance()->getFont(FT_Normal);
   Color c = Decorator::instance()->getColor(C_Text);
 
-  _widthLabel = new Label(this, "Screen width*:", f,
+  _widthLabel = new Label(this, _("Screen width*:"), f,
                           AL_Left | AL_VCenter, true, c);
   _widthLabel->show();
 
@@ -29,7 +30,7 @@ SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent, "Settings")
   _widthEdit->show();
   addFocusControl(_widthEdit);
 
-  _heightLabel = new Label(this, "Screen height*:", f,
+  _heightLabel = new Label(this, _("Screen height*:"), f,
                           AL_Left | AL_VCenter, true, c);
   _heightLabel->show();
 
@@ -37,32 +38,32 @@ SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent, "Settings")
   _heightEdit->show();
   addFocusControl(_heightEdit);
 
-  _fullScreenCheckBox = new CheckBox(this, "Full screen*", false, true);
+  _fullScreenCheckBox = new CheckBox(this, _("Full screen*"), false, true);
   _fullScreenCheckBox->show();
   addFocusControl(_fullScreenCheckBox);
 
-  _multisamplingCheckBox = new CheckBox(this, "Multisampling*", false, true);
+  _multisamplingCheckBox = new CheckBox(this, _("Multisampling*"), false, true);
   _multisamplingCheckBox->show();
   addFocusControl(_multisamplingCheckBox);
 
-  _fpsCheckBox = new CheckBox(this, "FPS counter", false, true);
+  _fpsCheckBox = new CheckBox(this, _("FPS counter"), false, true);
   _fpsCheckBox->show();
   addFocusControl(_fpsCheckBox);
 
-  _displayQualityLabel = new Label(this, "Detail level:", f,
+  _displayQualityLabel = new Label(this, _("Detail level:"), f,
                                    AL_Left | AL_VCenter, true, c);
   _displayQualityLabel->show();
 
   vector<string> displayQualityChoices;
-  displayQualityChoices.push_back("Low");
-  displayQualityChoices.push_back("Medium");
-  displayQualityChoices.push_back("High");
-  displayQualityChoices.push_back("Very high");
+  displayQualityChoices.push_back(_("Low"));
+  displayQualityChoices.push_back(_("Medium"));
+  displayQualityChoices.push_back(_("High"));
+  displayQualityChoices.push_back(_("Very high"));
   _displayQualityChoiceBox = new ChoiceBox(this, displayQualityChoices, 0, true);
   _displayQualityChoiceBox->show();
   addFocusControl(_displayQualityChoiceBox);
 
-  _playerNameLabel = new Label(this, "Player name:", f,
+  _playerNameLabel = new Label(this, _("Player name:"), f,
                                AL_Left | AL_VCenter, true, c);
   _playerNameLabel->show();
 
@@ -70,7 +71,7 @@ SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent, "Settings")
   _playerNameEdit->show();
   addFocusControl(_playerNameEdit);
 
-  _fovLabel = new Label(this, "View angle [°]:", f,
+  _fovLabel = new Label(this, _("View angle [°]:"), f,
                         AL_Left | AL_VCenter, true, c);
   _fovLabel->show();
 
@@ -78,15 +79,15 @@ SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent, "Settings")
   _fovEdit->show();
   addFocusControl(_fovEdit);
 
-  _noticeLabel = new Label(this, "* - applied after restart", f,
+  _noticeLabel = new Label(this, _("* - applied after restart"), f,
                            AL_Left | AL_VCenter, true, c);
   _noticeLabel->show();
 
-  _okButton = new Button(this, "OK", true);
+  _okButton = new Button(this, _("OK"), true);
   _okButton->show();
   addFocusControl(_okButton);
 
-  _cancelButton = new Button(this, "Cancel", true);
+  _cancelButton = new Button(this, _("Cancel"), true);
   _cancelButton->show();
   addFocusControl(_cancelButton);
 }

@@ -51,10 +51,10 @@ Render::Render() : Widget(NULL, "Render")
   setVisible(true);
 
   vector<string> mainMenuItems;
-  mainMenuItems.push_back("Simulation");
-  mainMenuItems.push_back("Game with opponents");
-  mainMenuItems.push_back("Settings");
-  mainMenuItems.push_back("Exit");
+  mainMenuItems.push_back(_("Simulation"));
+  mainMenuItems.push_back(_("Game with enemies"));
+  mainMenuItems.push_back(_("Settings"));
+  mainMenuItems.push_back(_("Exit"));
 
   _mainMenu = new Menu(this, "FlightSim", mainMenuItems, true, "Mode_MainMenu");
   _mainMenu->show();
@@ -404,12 +404,6 @@ void Render::consoleCommand(const std::string &command)
   {
     print("FPS counter: off");
     setFPSVisible(false);
-  }
-  else if (cmd == "sim")
-  {
-    string simulationCommand;
-    getline(s, simulationCommand);
-    _simulation->command(simulationCommand);
   }
   else if (cmd == "help")
   {

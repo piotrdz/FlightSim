@@ -15,6 +15,12 @@
 
 #include <SDL/SDL.h>
 
+#include <libintl.h>
+#include <locale.h>
+
+// Gettext shortcut
+#define _(s) gettext(s)
+
 
 enum Alignment
 {
@@ -304,3 +310,5 @@ std::wstring utf8StringToUnicode(const std::string &str);
 int nextUtf8CharLength(const std::string &str, unsigned int pos);
 
 size_t utf8StringLength(const std::string &str);
+
+std::string replace(const std::string &str, const std::string &oldStr, const std::string &newStr);

@@ -595,3 +595,15 @@ size_t utf8StringLength(const string &str)
   }
   return result;
 }
+
+std::string replace(const std::string &str, const std::string &oldStr, const std::string &newStr)
+{
+  string result = str;
+  size_t pos = 0;
+  while((pos = str.find(oldStr, pos)) != std::string::npos)
+  {
+    result.replace(pos, oldStr.length(), newStr);
+    pos += newStr.length();
+  }
+  return result;
+}
