@@ -1,19 +1,19 @@
 #!/bin/bash
 
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 dir shadow_dir"
+  exit 1
+fi
+
 # A script to shadow directory structure in build/ so that
 # build and CMake objects can be deleted easily
 
-if [ -e build ]; then
-  echo "Removing old build/"
-  rm -rf build/
-fi
-
-TEMP_DIR=/tmp/build.$RANDOM
+TEMP_DIR=/tmp/shadow.$RANDOM
+SRC_DIR=`readlink -f "$1"`
 
 echo "Shadowing structure in temp: $TEMP_DIR"
-CURRENT_DIR=`pwd`
-find . -type d -printf "mkdir -p '$TEMP_DIR/%P'\n" -o -type f -printf "ln -s '$CURRENT_DIR/%P' '$TEMP_DIR/%P'\n" | sh
+find "$1" -type d -printf "mkdir -p '$TEMP_DIR/%P'\n" -o -type f -printf "ln -s '$SRC_DIR/%P' '$TEMP_DIR/%P'\n" | sh
 
 
-echo "Moving temp: $TEMP_DIR to build/"
-mv $TEMP_DIR build/
+echo "Moving temp: $TEMP_DIR to $2"
+mv $TEMP_DIR "$2"
