@@ -60,3 +60,5 @@ endif(CMAKE_SYSTEM_NAME MATCHES "Windows")
 add_executable(bin/flightsim ${SOURCES})
 
 target_link_libraries(bin/flightsim ${LIBS})
+
+add_subdirectory(po)
