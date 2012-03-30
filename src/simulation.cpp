@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -44,43 +44,16 @@ Simulation::Simulation(Widget* pParent,
   _map->setScale(Vector3D(20.0f, 800.0f, 20.0f));
 
   _player = new Player(_map);
-  _player->setName(_("Player"));
   _player->setTeam(Player::Team_Blue);
   _player->setControlType(Player::Control_AngularVelocity);
   _player->setAI(false);
   _player->setFrameVisible(false);
 
   _hudMode = Hud_Full;
-  _hudFont = Decorator::instance()->getFont(FT_Small);
-  _bigHudFont = Decorator::instance()->getFont(FT_Normal);
 
   _updateTimer.setIntervalMsec(5);
 
   _messageTimer.setIntervalMsec(50);
-
-
-  _initializingLabel = new Label(this, _("Initializing the map..."),
-                                 Decorator::instance()->getFont(FT_Big),
-                                 AL_Center, false,
-                                 Decorator::instance()->getColor(C_Text),
-                                 true);
-  _initializingLabel->show();
-
-  _collisionLabel = new Label(this, "Collision!",
-                              Decorator::instance()->getFont(FT_SimulationWarning),
-                              AL_Center, false,
-                              Color(1.0f, 0.0f, 0.0f),
-                              true);
-
-  _messageLabel = new Label(this, "", Decorator::instance()->getFont(FT_Big),
-                            AL_Bottom | AL_HCenter, true,
-                            Decorator::instance()->getColor(C_Text));
-
-  vector<string> menuItems;
-  menuItems.push_back(_("Return to the game"));
-  menuItems.push_back(_("Settings"));
-  menuItems.push_back(_("Exit the game"));
-  _menu = new Menu(this, "", menuItems, true, name() + "_Menu");
 
   BindingManager *b = BindingManager::instance();
   b->registerKey("RollNegative", KeyBinding(SDLK_KP4));
@@ -114,8 +87,6 @@ Simulation::Simulation(Widget* pParent,
   s->registerSetting<string>("PlayerName", _player->name());
   s->registerSetting<int>("DisplayQuality", Quality_Medium);
   s->registerSetting<float>("FOV", 45.0f);
-
-  reset();
 }
 
 Simulation::~Simulation()
@@ -167,6 +138,7 @@ void Simulation::loadSettings()
 void Simulation::reset()
 {
   _map->clear();
+
   _initializing = true;
   _initializingLabel->show();
 
@@ -244,6 +216,38 @@ void Simulation::addEnemies(int count, int aiActions)
 
 void Simulation::init()
 {
+  _player->setName(_("Player"));
+
+  _hudFont = Decorator::instance()->getFont(FT_Small);
+  _bigHudFont = Decorator::instance()->getFont(FT_Normal);
+
+  _initializingLabel = new Label(this, _("Initializing the map..."),
+                                 Decorator::instance()->getFont(FT_Big),
+                                 AL_Center, false,
+                                 Decorator::instance()->getColor(C_Text),
+                                 true);
+  _initializingLabel->show();
+
+  _collisionLabel = new Label(this, "Collision!",
+                              Decorator::instance()->getFont(FT_SimulationWarning),
+                              AL_Center, false,
+                              Color(1.0f, 0.0f, 0.0f),
+                              true);
+
+  _messageLabel = new Label(this, "", Decorator::instance()->getFont(FT_Big),
+                            AL_Bottom | AL_HCenter, true,
+                            Decorator::instance()->getColor(C_Text));
+
+  vector<string> menuItems;
+  menuItems.push_back(_("Return to the game"));
+  menuItems.push_back(_("Settings"));
+  menuItems.push_back(_("Exit the game"));
+  _menu = new Menu(this, "", menuItems, true, name() + "_Menu");
+
+
+  reset();
+
+
   _map->createWorkerThread();
 
   float lightAmbient[] = { 0.4f, 0.4f, 0.4f, 1.0f };

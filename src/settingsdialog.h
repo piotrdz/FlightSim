@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -20,10 +20,13 @@ class SettingsDialog : public Dialog
     SettingsDialog(Widget *pParent);
     virtual ~SettingsDialog();
 
+    virtual void init();
+
   protected:
     virtual void resizeEvent();
     virtual void showEvent();
     virtual void childEvent(Widget *sender, int parameter);
+    virtual void keyboardDownEvent(KeyboardDownEvent *e);
 
 
   private:
@@ -38,9 +41,16 @@ class SettingsDialog : public Dialog
     LineEdit *_playerNameEdit;
     Label *_fovLabel;
     LineEdit *_fovEdit;
+    Label *_languageLabel;
+    ChoiceBox *_languageChoiceBox;
+    Label *_keyBindingLabel, *_keyBindingChosenLabel;
+    ChoiceBox *_keyBindingChoiceBox;
+    Button *_keyBindingChangeButton;
     Label *_noticeLabel;
     Button *_cancelButton, *_okButton;
+    bool _keyCapture;
 
+    void updateKeyBinding();
     void readSettings();
     void writeSettings();
 };

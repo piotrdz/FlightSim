@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -27,6 +27,7 @@ class Console : public Widget
     inline static Console *instance()
       { return _instance; }
 
+    virtual void init();
     virtual void render();
 
     void print(const std::string &line);

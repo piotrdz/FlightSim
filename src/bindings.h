@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -14,6 +14,8 @@
 #include "object.h"
 
 #include <string>
+#include <vector>
+#include <map>
 
 class KeyboardEvent;
 
@@ -104,6 +106,7 @@ class BindingManager : public Object
 
     void registerKey(const std::string &pName,
                      const KeyBinding &pBinding);
+    std::vector<std::string> registeredKeys() const;
     const KeyBinding& findKey(const std::string &pName) const;
     bool setKey(const std::string &pName, int pKeysym, bool pValid = true);
 

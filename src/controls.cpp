@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -232,10 +232,10 @@ ChoiceBox::~ChoiceBox()
   _label = NULL;
 }
 
-void ChoiceBox::setChoices(std::vector<std::string> &pChoices)
+void ChoiceBox::setChoices(const std::vector<std::string> &pChoices)
 {
   _choices = pChoices;
-  _index = 0;
+  setIndex(0);
   updatePreferredSize();
 }
 

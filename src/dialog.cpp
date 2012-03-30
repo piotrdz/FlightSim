@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -17,24 +17,27 @@ using namespace std;
 
 
 Dialog::Dialog(Widget *pParent,
-               const std::string &pTitle,
-               bool pTitleUTF8,
                const std::string &pName)
   : Widget(pParent, pName.empty() ? genericName("Dialog") : pName)
 {
-  _titleLabel = new Label(this, pTitle,
-                         Decorator::instance()->getFont(FT_WindowTitle),
-                         AL_Center, pTitleUTF8,
-                         Decorator::instance()->getColor(C_Text));
-  _titleLabel->show();
-
   _focusing = true;
   _focusIndex = 0;
+
+  _titleLabel = NULL;
 }
 
 Dialog::~Dialog()
 {
   _titleLabel = NULL;
+}
+
+void Dialog::init()
+{
+  _titleLabel = new Label(this, "",
+                          Decorator::instance()->getFont(FT_WindowTitle),
+                          AL_Center, false,
+                          Decorator::instance()->getColor(C_Text));
+  _titleLabel->show();
 }
 
 void Dialog::keyboardDownEvent(KeyboardDownEvent *e)

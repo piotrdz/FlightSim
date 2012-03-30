@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -22,11 +22,10 @@ class Dialog : public Widget
 {
   public:
     Dialog(Widget *pParent,
-           const std::string &pTitle = "",
-           bool pTitleUTF8 = false,
            const std::string &pName = "");
     virtual ~Dialog();
 
+    virtual void init();
     virtual void render();
 
     inline std::string title() const

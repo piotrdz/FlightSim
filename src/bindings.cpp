@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -305,7 +305,7 @@ bool KeyBinding::set(int pKeysym, bool valid)
 
 std::string KeyBinding::name() const
 {
-  if (_valid)
+  if (!_valid)
     return "(none)";
 
   return translateSupportedKeysym(_keysym);
@@ -383,6 +383,17 @@ void BindingManager::registerKey(const std::string& pName,
                           pName + "_Key", binding.keysym());
   Settings::instance()->registerSetting<bool>(string("KeyBinding_") +
                           pName + "_Valid", binding.valid());
+}
+
+vector<string> BindingManager::registeredKeys() const
+{
+  vector<string> result;
+
+  map<string, KeyBinding>::const_iterator it;
+  for (it = _keyMap.begin(); it != _keyMap.end(); ++it)
+    result.push_back((*it).first);
+
+  return result;
 }
 
 const KeyBinding& BindingManager::findKey(const std::string& pName) const

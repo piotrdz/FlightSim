@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -28,7 +28,7 @@ unsigned int TextureLoader::loadTexture(const std::string &fileName,
   if (!textureImage)
   {
     Application::instance()->print("TextureLoader",
-      "Loading texture '" + fileName + string("' failed: ") + IMG_GetError());
+      replace(replace(_("Loading texture '%1' failed: %2"), "%1", fileName), "%2", IMG_GetError()) );
     Application::instance()->quit(1);
     return 0;
   }

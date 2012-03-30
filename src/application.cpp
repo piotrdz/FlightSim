@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -19,6 +19,7 @@
 #include <iostream>
 #include <sstream>
 #include <cassert>
+#include <cstdlib>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -233,9 +234,11 @@ void Application::init()
 {
   // Gettext initialization
   string locale = _settings->setting<string>("Locale");
-  setlocale(LC_ALL, locale.c_str());
+  setlocale(LC_ALL, "en_US");
+  setenv("LANGUAGE", locale.c_str(), 1);
   bindtextdomain(_applicationName.c_str(), "data/tr");
   bind_textdomain_codeset(_applicationName.c_str(), "UTF-8");
+  textdomain(_applicationName.c_str());
 
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
   {
@@ -369,7 +372,6 @@ int Application::execute()
 
   loadSettings();
   _bindingManager->loadSettings();
-  _render->loadSettings();
 
   parseArgs();
 
@@ -379,8 +381,14 @@ int Application::execute()
   init();
 
   if (!_quit)
-  {
+    _decorator->init();
+
+  if (!_quit)
     _render->init();
+
+  if (!_quit)
+  {
+    _render->loadSettings();
 
     WindowResizeEvent firstResize(Size(0, 0), _windowSettings.size);
     _render->sendEvent(&firstResize);

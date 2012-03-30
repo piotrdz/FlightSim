@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -50,15 +50,6 @@ Render::Render() : Widget(NULL, "Render")
   setEventMask(ET_AllEvents);
   setVisible(true);
 
-  vector<string> mainMenuItems;
-  mainMenuItems.push_back(_("Simulation"));
-  mainMenuItems.push_back(_("Game with enemies"));
-  mainMenuItems.push_back(_("Settings"));
-  mainMenuItems.push_back(_("Exit"));
-
-  _mainMenu = new Menu(this, "FlightSim", mainMenuItems, true, "Mode_MainMenu");
-  _mainMenu->show();
-
   _mapDialog = new MapDialog(this);
 
   _gameDialog = new GameDialog(this);
@@ -68,13 +59,6 @@ Render::Render() : Widget(NULL, "Render")
   _settingsDialog = new SettingsDialog(this);
 
   _console = new Console(this);
-
-  _fpsLabel = new Label(this, "FPS: 0.0",
-                        Decorator::instance()->getFont(FT_Small),
-                        AL_Left | AL_Bottom, false,
-                        Color(1.0f, 1.0f, 1.0f, 1.0f),
-                        false, "FPS_Label");
-  _fpsLabel->show();
 
   Settings::instance()->registerSetting<bool>("FPS", true);
 
@@ -106,6 +90,23 @@ void Render::loadSettings()
 
 void Render::init()
 {
+  vector<string> mainMenuItems;
+  mainMenuItems.push_back(_("Simulation"));
+  mainMenuItems.push_back(_("Game with enemies"));
+  mainMenuItems.push_back(_("Settings"));
+  mainMenuItems.push_back(_("Exit"));
+
+  _mainMenu = new Menu(this, "FlightSim", mainMenuItems, true, "Mode_MainMenu");
+  _mainMenu->show();
+
+  _fpsLabel = new Label(this, "FPS: 0.0",
+                        Decorator::instance()->getFont(FT_Small),
+                        AL_Left | AL_Bottom, false,
+                        Color(1.0f, 1.0f, 1.0f, 1.0f),
+                        false, "FPS_Label");
+  _fpsLabel->show();
+
+
   Color c = Decorator::instance()->getColor(C_InterfaceBackground);
   glClearColor(c.r, c.g, c.b, c.a);
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -35,11 +35,19 @@ Decorator::Decorator() : Object("Decorator")
   _buttonCornerRadius = 5.0f;
   _cursorWidth = 2.0f;
   _cursorOffset = 0.0f;
+}
 
+Decorator::~Decorator()
+{
+  _instance = NULL;
+}
+
+void Decorator::init()
+{
   FileManager::instance()->registerFile("InterfaceFont", "data/interface.ttf");
   if (!FileManager::instance()->canRead("InterfaceFont"))
   {
-    print(string("Nie znaleziono czcionki: ") + FileManager::instance()->fileName("InterfaceFont"));
+    print(replace(_("Font not found: %1"), "%1", FileManager::instance()->fileName("InterfaceFont")));
     Application::instance()->quit(1);
     return;
   }
@@ -47,14 +55,9 @@ Decorator::Decorator() : Object("Decorator")
   FileManager::instance()->registerFile("InterfaceFontBold", "data/interface_bold.ttf");
   if (!FileManager::instance()->canRead("InterfaceFontBold"))
   {
-    print("Nie znaleziono czcionki: data/interface_bold.ttf!");
+    print(replace(_("Font not found: %1"), "%1", FileManager::instance()->fileName("InterfaceFontBold")));
     Application::instance()->quit(1);
   }
-}
-
-Decorator::~Decorator()
-{
-  _instance = NULL;
 }
 
 Color Decorator::getColor(ColorType type) const
@@ -398,7 +401,7 @@ void Decorator::rowLayout(Point base, const vector< Widget* >& widgets,
 
   for (unsigned int i = 0; i < widgets.size(); ++i)
   {
-    float w = widgets[i]->preferredSize().h;
+    float w = widgets[i]->preferredSize().w;
     if ((i < itemWidths.size()) && (itemWidths[i] >= 0.0f))
       w = itemWidths[i];
 

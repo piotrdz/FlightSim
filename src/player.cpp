@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -411,7 +411,8 @@ void Player::update()
   {
     if ((_lastAIState != _aiState) || (_lastAIParam != _aiParam))
     {
-      Application::instance()->print(_name, string("AI: stan: ") + toString<int>(_aiState) + " param: " + toString<float>(_aiParam));
+      Application::instance()->print(_name, string("AI: state: ") + toString<int>(_aiState) +
+        " param: " + toString<float>(_aiParam));
       _lastAIState = _aiState;
       _lastAIParam = _aiParam;
     }

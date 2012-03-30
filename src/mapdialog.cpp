@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -18,12 +18,22 @@ using namespace std;
 
 MapDialog::MapDialog(Widget* pParent) : Dialog(pParent)
 {
-  setTitle(_("Map settings"), true);
   enableInput();
 
   _hasTexture = false;
 
   _scale = Vector3D(20.0f, 800.0f, 20.0f);
+}
+
+MapDialog::~MapDialog()
+{
+}
+
+void MapDialog::init()
+{
+  Dialog::init();
+
+  setTitle(_("Map settings"), true);
 
   Font *f = Decorator::instance()->getFont(FT_Normal);
   Color c = Decorator::instance()->getColor(C_Text);
@@ -142,15 +152,6 @@ MapDialog::MapDialog(Widget* pParent) : Dialog(pParent)
   _previewLabel->show();
 
   writeControls();
-}
-
-MapDialog::~MapDialog()
-{
-}
-
-void MapDialog::init()
-{
-  Dialog::init();
 
   generateTexture();
 }

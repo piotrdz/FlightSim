@@ -1,0 +1,313 @@
+# Polish translations for FlightSim package
+# Polskie t�umaczenia dla pakietu FlightSim.
+# Copyright (C) 2012 THE FlightSim'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the FlightSim package.
+#
+# Automatically generated, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: FlightSim 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-31 01:03+0200\n"
+"PO-Revision-Date: 2012-03-31 01:02+0200\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../src/render.cpp:94
+msgid "Simulation"
+msgstr "Symulacja"
+
+#: ../src/render.cpp:95
+msgid "Game with enemies"
+msgstr "Gra z przeciwnikami"
+
+#: ../src/render.cpp:96 ../src/settingsdialog.cpp:33 ../src/simulation.cpp:243
+msgid "Settings"
+msgstr "Ustawienia gry"
+
+#: ../src/render.cpp:97
+msgid "Exit"
+msgstr "Koniec"
+
+#: ../src/settingsdialog.cpp:38
+msgid "Screen width*:"
+msgstr "Szerokość ekranu*:"
+
+#: ../src/settingsdialog.cpp:46
+msgid "Screen height*:"
+msgstr "Wysokość ekranu*:"
+
+#: ../src/settingsdialog.cpp:54
+msgid "Full screen*"
+msgstr "Pełny ekran*"
+
+#: ../src/settingsdialog.cpp:58
+msgid "Multisampling*"
+msgstr "Multisampling*"
+
+#: ../src/settingsdialog.cpp:62
+msgid "FPS counter"
+msgstr "Licznik FPS"
+
+#: ../src/settingsdialog.cpp:66
+msgid "Detail level:"
+msgstr "Poziom detali:"
+
+#: ../src/settingsdialog.cpp:71
+msgid "Low"
+msgstr "Niski"
+
+#: ../src/settingsdialog.cpp:72
+msgid "Medium"
+msgstr "Średni"
+
+#: ../src/settingsdialog.cpp:73
+msgid "High"
+msgstr "Wysoki"
+
+#: ../src/settingsdialog.cpp:74
+msgid "Very high"
+msgstr "Bardzo wysoki"
+
+#: ../src/settingsdialog.cpp:79
+msgid "Player name:"
+msgstr "Imię gracza:"
+
+#: ../src/settingsdialog.cpp:87
+msgid "View angle [°]:"
+msgstr "Kąt widoku [°]:"
+
+#: ../src/settingsdialog.cpp:95
+msgid "Language:"
+msgstr "Język:"
+
+#: ../src/settingsdialog.cpp:100
+msgid "English"
+msgstr "angielski"
+
+#: ../src/settingsdialog.cpp:101
+msgid "Polish"
+msgstr "polski"
+
+#: ../src/settingsdialog.cpp:107
+msgid "Key binding: "
+msgstr "Sterowanie:"
+
+#: ../src/settingsdialog.cpp:121
+msgid "Change"
+msgstr "Zmień"
+
+#: ../src/settingsdialog.cpp:125
+msgid "* - applied after restart"
+msgstr "* - zastosowane po restarcie"
+
+#: ../src/settingsdialog.cpp:129
+msgid "OK"
+msgstr "OK"
+
+#: ../src/settingsdialog.cpp:133
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: ../src/decorator.cpp:50 ../src/decorator.cpp:58
+msgid "Font not found: %1"
+msgstr "Nie znaleziono czcionki: %1"
+
+#: ../src/gamedialog.cpp:36
+msgid "Game settings"
+msgstr "Ustawienia gry"
+
+#: ../src/gamedialog.cpp:41
+msgid "Ammo (-1 = infinite):"
+msgstr "Amunicja (-1 = niesk.):"
+
+#: ../src/gamedialog.cpp:49
+msgid "Number of enemies:"
+msgstr "Liczba przeciwników::"
+
+#: ../src/gamedialog.cpp:57
+msgid "AI capabilities:"
+msgstr "Możliwości AI:"
+
+#: ../src/gamedialog.cpp:61
+msgid "Acceleration"
+msgstr "Przyspieszanie"
+
+#: ../src/gamedialog.cpp:65
+msgid "Turning"
+msgstr "Skręcanie"
+
+#: ../src/gamedialog.cpp:69
+msgid "Changing altitude"
+msgstr "Zmiana wysokości"
+
+#: ../src/gamedialog.cpp:73
+msgid "Evasive manouvers"
+msgstr "Manewry unikające"
+
+#: ../src/gamedialog.cpp:77 ../src/mapdialog.cpp:143
+msgid "Next ->"
+msgstr "Dalej ->"
+
+#: ../src/gamedialog.cpp:81 ../src/mapdialog.cpp:147
+msgid "<- Back"
+msgstr "<- Wstecz"
+
+#: ../src/mapdialog.cpp:36
+msgid "Map settings"
+msgstr "Ustawienia mapy"
+
+#: ../src/mapdialog.cpp:41
+msgid "Random distribution:"
+msgstr "Rozkład losowy:"
+
+#: ../src/mapdialog.cpp:46
+msgid "Uniform"
+msgstr "Jednostajny"
+
+#: ../src/mapdialog.cpp:47
+msgid "Normal"
+msgstr "Normalny"
+
+#: ../src/mapdialog.cpp:48
+msgid "Weibull"
+msgstr "Weibulla"
+
+#: ../src/mapdialog.cpp:53 ../src/mapdialog.cpp:300
+msgid "Mean:"
+msgstr "Średnia:"
+
+#: ../src/mapdialog.cpp:60 ../src/mapdialog.cpp:301
+msgid "Std deviation:"
+msgstr "Odchylenie std.:"
+
+#: ../src/mapdialog.cpp:68
+msgid "Clamping:"
+msgstr "Przycinanie:"
+
+#: ../src/mapdialog.cpp:73
+msgid "Rounding"
+msgstr "Zaokrąglanie"
+
+#: ../src/mapdialog.cpp:74
+msgid "Repetitive generation"
+msgstr "Ponowne losowanie"
+
+#: ../src/mapdialog.cpp:79
+msgid "Min. range:"
+msgstr "Zakres min.:"
+
+#: ../src/mapdialog.cpp:86
+msgid "Max. range:"
+msgstr "Zakres maks.:"
+
+#: ../src/mapdialog.cpp:94
+msgid "Mixing function:"
+msgstr "Funkcje mieszające:"
+
+#: ../src/mapdialog.cpp:99
+msgid "Gauss"
+msgstr "Gaussa"
+
+#: ../src/mapdialog.cpp:100
+msgid "Linear"
+msgstr "Liniowa"
+
+#: ../src/mapdialog.cpp:105
+msgid "Coeff. for 2-pt f.:"
+msgstr "Wsp. dla f. 2-pkt.:"
+
+#: ../src/mapdialog.cpp:112
+msgid "Coeff. for 4-pt f.:"
+msgstr "Wsp. dla f. 4-pkt.:"
+
+#: ../src/mapdialog.cpp:121
+msgid "Map scale:"
+msgstr "Skala mapy:"
+
+#: ../src/mapdialog.cpp:151
+msgid "Preview:"
+msgstr "Podgląd:"
+
+#: ../src/mapdialog.cpp:291
+msgid "Min.:"
+msgstr "Min.:"
+
+#: ../src/mapdialog.cpp:292
+msgid "Max.:"
+msgstr "Maks.:"
+
+#: ../src/mapdialog.cpp:309
+msgid "Scale:"
+msgstr "Skala:"
+
+#: ../src/mapdialog.cpp:310
+msgid "Shape:"
+msgstr "Kształt:"
+
+#: ../src/simulation.cpp:189
+msgid "Computer "
+msgstr "Komputer"
+
+#: ../src/simulation.cpp:219
+msgid "Player"
+msgstr "Gracz"
+
+#: ../src/simulation.cpp:224
+msgid "Initializing the map..."
+msgstr "Inicjowanie mapy..."
+
+#: ../src/simulation.cpp:242
+msgid "Return to the game"
+msgstr "Powrót do gry"
+
+#: ../src/simulation.cpp:244
+msgid "Exit the game"
+msgstr "Zakończ grę"
+
+#: ../src/simulation.cpp:896
+msgid "Enemy %1 shot down!"
+msgstr "Przeciwnik %1 zestrzelony!"
+
+#: ../src/simulation.cpp:906
+msgid "You have eliminated all enemies. Congratulations!"
+msgstr "Zestrzeliłeś wszystkich przeciwników. Gratulacje!"
+
+#: ../src/simulation.cpp:1046
+msgid "Fog: on"
+msgstr "Mgła: włączona"
+
+#: ../src/simulation.cpp:1048
+msgid "Fog: off"
+msgstr "Mgła: wyłączona"
+
+#: ../src/simulation.cpp:1054
+msgid "HUD: minimal"
+msgstr "HUD: minimalny"
+
+#: ../src/simulation.cpp:1059
+msgid "HUD: off"
+msgstr "HUD: wyłączony"
+
+#: ../src/simulation.cpp:1064
+msgid "HUD: full"
+msgstr "HUD: pełny"
+
+#: ../src/simulation.cpp:1072
+msgid "View: outside"
+msgstr "Widok: z zewnątrz"
+
+#: ../src/simulation.cpp:1077
+msgid "View: cockpit"
+msgstr "Widok: kokpit"
+
+#: ../src/texture.cpp:31
+msgid "Loading texture '%1' failed: %2"
+msgstr "Ładowanie tekstury '%1' nieudane: %2"

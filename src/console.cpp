@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -27,11 +27,9 @@ Console::Console(Widget* pParent) : Widget(pParent, "Console")
 
   _commandEditHeight = 0;
 
-  _font = Decorator::instance()->getFont(FT_Small);
-  _metrics = new FontMetrics(_font);
-  _commandEdit = new LineEdit(this, "", false, _font);
-  _commandEdit->show();
-  _commandEdit->setFocus(2);
+  _font = NULL;
+  _metrics = NULL;
+  _commandEdit = NULL;
 }
 
 Console::~Console()
@@ -43,6 +41,15 @@ Console::~Console()
 
   _font = NULL;
   _commandEdit = NULL;
+}
+
+void Console::init()
+{
+  _font = Decorator::instance()->getFont(FT_Small);
+  _metrics = new FontMetrics(_font);
+  _commandEdit = new LineEdit(this, "", false, _font);
+  _commandEdit->show();
+  _commandEdit->setFocus(2);
 }
 
 void Console::render()
@@ -95,6 +102,9 @@ void Console::resizeEvent()
 
 void Console::updateLines()
 {
+  if (_metrics == NULL)
+    return;
+
   float margin = Decorator::instance()->getDefaultMargin();
   unsigned int maxLines = (unsigned int)((size().h - 3.0f * margin - _commandEditHeight)
                                            / _metrics->height());

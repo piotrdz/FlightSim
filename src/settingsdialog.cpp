@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -10,14 +10,27 @@
 
 #include "decorator.h"
 #include "settings.h"
+#include "bindings.h"
 
 using namespace std;
 
 
 SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent)
 {
-  setTitle(_("Settings"), true);
   enableInput();
+
+  _keyCapture = false;
+}
+
+SettingsDialog::~SettingsDialog()
+{
+}
+
+void SettingsDialog::init()
+{
+  Dialog::init();
+
+  setTitle(_("Settings"), true);
 
   Font *f = Decorator::instance()->getFont(FT_Normal);
   Color c = Decorator::instance()->getColor(C_Text);
@@ -79,6 +92,36 @@ SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent)
   _fovEdit->show();
   addFocusControl(_fovEdit);
 
+  _languageLabel = new Label(this, _("Language:"), f,
+                             AL_Left | AL_VCenter, true, c);
+  _languageLabel->show();
+
+  vector<string> languageChoices;
+  languageChoices.push_back(_("English"));
+  languageChoices.push_back(_("Polish"));
+
+  _languageChoiceBox = new ChoiceBox(this, languageChoices, 0, true);
+  _languageChoiceBox->show();
+  addFocusControl(_languageChoiceBox);
+
+  _keyBindingLabel = new Label(this, _("Key binding: "), f,
+                               AL_Left | AL_VCenter, true, c);
+
+  _keyBindingLabel->show();
+
+  vector<string> choices = BindingManager::instance()->registeredKeys();
+  _keyBindingChoiceBox = new ChoiceBox(this, choices, 0, true);
+  _keyBindingChoiceBox->show();
+  addFocusControl(_keyBindingChoiceBox);
+
+  _keyBindingChosenLabel = new Label(this, "(none)", f,
+                                     AL_Left | AL_VCenter, true, c);
+  _keyBindingChosenLabel->show();
+
+  _keyBindingChangeButton = new Button(this, _("Change"), true);
+  _keyBindingChangeButton->show();
+  addFocusControl(_keyBindingChangeButton);
+
   _noticeLabel = new Label(this, _("* - applied after restart"), f,
                            AL_Left | AL_VCenter, true, c);
   _noticeLabel->show();
@@ -90,10 +133,6 @@ SettingsDialog::SettingsDialog(Widget *pParent) : Dialog(pParent)
   _cancelButton = new Button(this, _("Cancel"), true);
   _cancelButton->show();
   addFocusControl(_cancelButton);
-}
-
-SettingsDialog::~SettingsDialog()
-{
 }
 
 void SettingsDialog::resizeEvent()
@@ -133,15 +172,26 @@ void SettingsDialog::resizeEvent()
   columns2[0].push_back(_displayQualityLabel);
   columns2[0].push_back(_playerNameLabel);
   columns2[0].push_back(_fovLabel);
+  columns2[0].push_back(_languageLabel);
+  columns2[0].push_back(_keyBindingLabel);
 
   columns2[1].push_back(_displayQualityChoiceBox);
   columns2[1].push_back(_playerNameEdit);
   columns2[1].push_back(_fovEdit);
+  columns2[1].push_back(_languageChoiceBox);
 
   Point columns2Base = Point(_fpsCheckBox->geometry().x, _fpsCheckBox->geometry().y2());
   columns2Base.y += margin;
 
   Decorator::instance()->gridLayout(columns2Base, columns2, columnsWidths);
+
+  vector< Widget* > row;
+  row.push_back(_keyBindingChoiceBox);
+  row.push_back(_keyBindingChosenLabel);
+  row.push_back(_keyBindingChangeButton);
+
+  Point rowBase = Point(_keyBindingLabel->geometry().x, _keyBindingLabel->geometry().y2());
+  Decorator::instance()->rowLayout(rowBase, row);
 
 
   float buttonsWidth = _okButton->preferredSize().w + _cancelButton->preferredSize().w + 2.0f * margin;
@@ -208,6 +258,37 @@ void SettingsDialog::childEvent(Widget *sender, int parameter)
       _fovEdit->setText(toString<float>(f));
     }
   }
+  else if (sender == _keyBindingChoiceBox)
+  {
+    if (parameter == ChoiceBox::ChoiceChanged)
+      updateKeyBinding();
+  }
+  else if (sender == _keyBindingChangeButton)
+  {
+    _keyCapture = true;
+  }
+}
+
+void SettingsDialog::updateKeyBinding()
+{
+  KeyBinding kb = BindingManager::instance()->findKey(_keyBindingChoiceBox->item());
+  _keyBindingChosenLabel->setText(kb.name());
+  resizeEvent();
+}
+
+void SettingsDialog::keyboardDownEvent(KeyboardDownEvent *e)
+{
+  if (_keyCapture)
+  {
+    _keyCapture = false;
+
+    e->stop();
+
+    BindingManager::instance()->setKey(_keyBindingChoiceBox->item(), e->event().keysym.sym,
+                                       e->event().keysym.sym != SDLK_ESCAPE);
+
+    updateKeyBinding();
+  }
 }
 
 void SettingsDialog::readSettings()
@@ -221,6 +302,12 @@ void SettingsDialog::readSettings()
   _displayQualityChoiceBox->setIndex(s->setting<int>("DisplayQuality"));
   _playerNameEdit->setText(s->setting<string>("PlayerName"));
   _fovEdit->setText(s->setting<string>("FOV"));
+
+  string locale = s->setting<string>("Locale");
+  if (locale == "pl_PL")
+    _languageChoiceBox->setIndex(1);
+  else
+    _languageChoiceBox->setIndex(0);
 }
 
 void SettingsDialog::writeSettings()
@@ -234,4 +321,16 @@ void SettingsDialog::writeSettings()
   s->setSetting<int>("DisplayQuality", _displayQualityChoiceBox->index());
   s->setSetting<string>("PlayerName", _playerNameEdit->text());
   s->setSetting<float>("FOV", fromString<float>(_fovEdit->text()));
+
+  string locale = "en_US";
+  switch (_languageChoiceBox->index())
+  {
+    case 1:
+      locale = "pl_PL";
+      break;
+    default:
+      break;
+  }
+
+  s->setSetting<string>("Locale", locale);
 }

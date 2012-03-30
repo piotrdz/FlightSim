@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -150,7 +150,7 @@ class ChoiceBox : public Control
 
     std::vector<std::string> choices()
       { return _choices; }
-    void setChoices(std::vector<std::string> &pChoices);
+    void setChoices(const std::vector<std::string> &pChoices);
 
     inline bool utf8Flag() const
       { return _label->utf8Flag(); }
@@ -160,6 +160,9 @@ class ChoiceBox : public Control
     inline unsigned int index() const
       { return _index; }
     void setIndex(unsigned int pIndex);
+
+    inline std::string item() const
+      { return (_index >= _choices.size()) ? "" : _choices[_index]; }
 
     virtual void render();
 
@@ -172,7 +175,7 @@ class ChoiceBox : public Control
   private:
     Label *_label;
     std::vector<std::string> _choices;
-    int _index;
+    unsigned int _index;
     Size _preferredSize;
     Rect _box1Rect, _box2Rect;
     int _focusedBox;

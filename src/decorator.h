@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -57,6 +57,8 @@ class Decorator : public Object
 
     inline static Decorator* instance()
       { return _instance; }
+
+    void init();
 
     Font* getFont(FontType type) const;
 

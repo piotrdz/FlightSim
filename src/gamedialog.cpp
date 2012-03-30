@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -18,12 +18,22 @@ using namespace std;
 
 GameDialog::GameDialog(Widget* pParent) : Dialog(pParent)
 {
-  setTitle(_("Game settings"), true);
   enableInput();
 
   _playerAmmo = -1;
   _enemyCount = 1;
   _enemyActions = 0;
+}
+
+GameDialog::~GameDialog()
+{
+}
+
+void GameDialog::init()
+{
+  Dialog::init();
+
+  setTitle(_("Game settings"), true);
 
   Font *f = Decorator::instance()->getFont(FT_Normal);
   Color c = Decorator::instance()->getColor(C_Text);
@@ -71,10 +81,6 @@ GameDialog::GameDialog(Widget* pParent) : Dialog(pParent)
   _backButton = new Button(this, _("<- Back"), true);
   _backButton->show();
   addFocusControl(_backButton);
-}
-
-GameDialog::~GameDialog()
-{
 }
 
 void GameDialog::resizeEvent()

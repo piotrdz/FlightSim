@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Piotr Dziwinski                                 *
+ *   Copyright (C) 2011-2012 by Piotr Dziwinski                            *
  *   piotrdz@gmail.com                                                     *
  ***************************************************************************/
 
@@ -16,7 +16,6 @@
 #include <SDL/SDL.h>
 
 #include <libintl.h>
-#include <locale.h>
 
 // Gettext shortcut
 #define _(s) gettext(s)
@@ -299,16 +298,19 @@ T fromString(const std::string &str, bool *ok = NULL)
   return value;
 }
 
-std::string unicodeCharToUtf8(Uint16 ch);
+//namespace StringUtils
+//{
+  std::string unicodeCharToUtf8(Uint16 ch);
 
-std::string unicodeStringToUtf8(const std::wstring &str);
+  std::string unicodeStringToUtf8(const std::wstring &str);
 
-Uint16 utf8CharToUnicode(const std::string &ch);
+  Uint16 utf8CharToUnicode(const std::string &ch);
 
-std::wstring utf8StringToUnicode(const std::string &str);
+  std::wstring utf8StringToUnicode(const std::string &str);
 
-int nextUtf8CharLength(const std::string &str, unsigned int pos);
+  int nextUtf8CharLength(const std::string &str, unsigned int pos);
 
-size_t utf8StringLength(const std::string &str);
+  size_t utf8StringLength(const std::string &str);
 
-std::string replace(const std::string &str, const std::string &oldStr, const std::string &newStr);
+  std::string replace(const std::string &str, const std::string &oldStr, const std::string &newStr);
+//};
